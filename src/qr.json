@@ -1,0 +1,24 @@
+{
+  "totalPrice": 400,
+  "purchaseDate": "2020-01-20",
+  "purchaseTime": "23:59:59:",
+  "items": [
+    { "title": "battered sausage", "price": 100, "returnPeriod": 28 },
+    { "title": "battered melon", "price": 300, "returnPeriod": 28 }
+  ],
+  "vatValue": "80",
+  "vatNumber": 262897,
+  "authorisationCode": 12345,
+  "vendor": "Tesco",
+  "storeLocation": {
+    "name": "Scunthorpe Superstore",
+    "town": "Scunthorpe",
+    "road": "Doncaster Road",
+    "postcode": "DN15 8GR",
+    "county":"Lincolnshire"
+  },
+  "app": "Rbuddie",
+  "tenderType": "visa",
+  "amountTendered": 400,
+  "change": 0
+}
