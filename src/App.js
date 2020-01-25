@@ -1,41 +1,61 @@
 import React, { Component } from "react";
-import logo from "./logo.svg";
+import ShowReceipt from './component/ShowReceipt'
 import "./App.css";
 import QrReader from "react-qr-reader";
 
 class App extends Component {
   state = {
-    data: [{ vendor: "Londis" }],
-    isError: false
+    receiptData: {},
+    isDuplicate: false,
+    isError: false,
+    renderReceipt: false
   };
   render() {
-    console.log(this.state.data)
+    console.log(this.state.receiptData);
     return (
       <div className="App">
-        <div>Result: {this.state.data.map(receipt=>{
-          return receipt.vendor ;
-        })}</div>
+        <h1>Scan Your Receipt</h1>
+        <QrReader style={{ width: "100%" }} onScan={this.onScan} onError={this.onError} delay={300} facingMode="user" />
         <div>{this.state.isError ? "This is not an RBuddie code" : ""}</div>
-        <QrReader style={{ width: "100%" }} onScan={this.onScan} delay={300} />
+        {this.state.renderReceipt ? <ShowReceipt receipt={this.state.receiptData} isDuplicate={this.state.isDuplicate} /> : ''}
       </div>
     );
   }
 
-  onScan = event => {
-    if (event) {
-      var obj = JSON.parse(event);
-      if (obj !== null && obj.app === "Rbuddie") {
-        var newState = [...this.state.data];
-        console.log(newState);
-        newState.push(obj);
-        // newState.isError=false
-        this.setState({ data: newState, isError: false });
-        console.log(obj);
+  onScan = dataString => {
+    if (dataString) {
+      var scannedDataObj = JSON.parse(dataString);
+      // Check the parsed data is a valid object & a Rbuddie reciept
+      if (scannedDataObj !== null && scannedDataObj.app === "Rbuddie") {
+
+        // Check if the receipt has already been saved
+        const receipt = this.receiptExists(scannedDataObj.authorisationCode);
+
+        if (receipt) {
+          this.setState({ receiptData: receipt, isDuplicate: true, isError: false, renderReceipt: true })
+        } else {
+          this.setState({ receiptData: scannedDataObj, isDuplicate: false, isError: false, renderReceipt: true });
+          const stringReceiptId = JSON.stringify(scannedDataObj.authorisationCode);
+          const stringReceipt = JSON.stringify(scannedDataObj);
+          // Persist the new Receipt to the local storage
+          localStorage.setItem(stringReceiptId, stringReceipt);
+        }
       } else {
-        this.setState({ isError: true });
+        this.setState({ isError: true, renderReceipt: false });
       }
     }
   };
+
+  onError = (error) => {
+    console.log(error);
+  }
+
+  receiptExists = (receiptId) => {
+    const storedReceipt = localStorage.getItem(receiptId);
+    const storedReceiptObj = JSON.parse(storedReceipt);
+    if (storedReceiptObj) return storedReceiptObj;
+    else return false;
+  }
 }
 
 export default App;
