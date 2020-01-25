@@ -1,21 +1,23 @@
 import React, { Component } from "react";
-import ShowReceipt from './component/ShowReceipt'
-import "./App.css";
 import QrReader from "react-qr-reader";
+import ShowReceipt from './component/ShowReceipt';
+import Button from './component/Button';
+import "./App.css";
 
 class App extends Component {
   state = {
     receiptData: {},
     isDuplicate: false,
     isError: false,
-    renderReceipt: false
+    renderReceipt: false,
+    shouldScan: true
   };
   render() {
     console.log(this.state.receiptData);
     return (
       <div className="App">
         <h1>Scan Your Receipt</h1>
-        <QrReader style={{ width: "100%" }} onScan={this.onScan} onError={this.onError} delay={300} facingMode="user" />
+        {this.state.shouldScan ? <QrReader style={{ width: "100%" }} onScan={this.onScan} onError={this.onError} delay={300} facingMode="user" /> : <Button toggleQrReader={this.toggleReader} />}
         <div>{this.state.isError ? "This is not an RBuddie code" : ""}</div>
         {this.state.renderReceipt ? <ShowReceipt receipt={this.state.receiptData} isDuplicate={this.state.isDuplicate} /> : ''}
       </div>
@@ -32,16 +34,16 @@ class App extends Component {
         const receipt = this.receiptExists(scannedDataObj.authorisationCode);
 
         if (receipt) {
-          this.setState({ receiptData: receipt, isDuplicate: true, isError: false, renderReceipt: true })
+          this.setState({ receiptData: receipt, isDuplicate: true, isError: false, renderReceipt: true, shouldScan: false })
         } else {
-          this.setState({ receiptData: scannedDataObj, isDuplicate: false, isError: false, renderReceipt: true });
+          this.setState({ receiptData: scannedDataObj, isDuplicate: false, isError: false, renderReceipt: true, shouldScan: false });
           const stringReceiptId = JSON.stringify(scannedDataObj.authorisationCode);
           const stringReceipt = JSON.stringify(scannedDataObj);
           // Persist the new Receipt to the local storage
           localStorage.setItem(stringReceiptId, stringReceipt);
         }
       } else {
-        this.setState({ isError: true, renderReceipt: false });
+        this.setState({ isError: true, renderReceipt: false, shouldScan: true });
       }
     }
   };
@@ -55,6 +57,10 @@ class App extends Component {
     const storedReceiptObj = JSON.parse(storedReceipt);
     if (storedReceiptObj) return storedReceiptObj;
     else return false;
+  }
+
+  toggleReader = () => {
+    this.setState({ shouldScan: true, renderReceipt: false })
   }
 }
 
