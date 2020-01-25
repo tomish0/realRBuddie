@@ -1,0 +1,39 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+  box-sizing: border-box;
+}
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+.App {
+  font-family: Open Sans;
+}
+
+.App-top {
+  background-image: linear-gradient(to bottom,#fff 5%,#4787F6);
+}
+
+.App-logo {
+  margin: 25px 15px;
+  width: 200px;
+}
+
+.App-header {
+  font-size: 1.2em;
+  margin: 0;
+  color: #05E32C;
+}
+
+h1 {
+  margin: auto 15px;
+  padding: 20px 0;
+  color: #05E32C;
+  font-size: 1.5em;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+
