@@ -9,9 +9,9 @@ class ShowReceipt extends Component {
     const receipt = this.props.receipt;
     const items = receipt.items;
 
-    const eachItem = items.map(item => {
+    const eachItem = items.map((item, i) => {
       return (
-        <ul>
+        <ul key={i}>
           <li>{item.title}</li>
           <li>{item.price}</li>
           <li>{item.returnPeriod}</li>
