@@ -1,43 +1,43 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
-import ShowReceipt from './component/ShowReceipt';
-import Button from './component/Button';
+import ShowReceipt from "./component/ShowReceipt";
+import Button from "./component/Button";
 import "./styles/App.css";
-import logo from '../public/logo.png';
+import logo from "../public/logo.png";
 
 const reciptTest = {
-  "id": "12ddasd343234s",
-  "totalPrice": 400,
-  "purchaseDate": "2020-01-20",
-  "purchaseTime": "23:59:59:",
-  "items": [
+  id: "12ddasd343234s",
+  totalPrice: 400,
+  purchaseDate: "2020-01-20",
+  purchaseTime: "23:59:59:",
+  items: [
     {
-      "title": "battered sausage",
-      "price": 100,
-      "returnPeriod": 28
+      title: "battered sausage",
+      price: 100,
+      returnPeriod: 28
     },
     {
-      "title": "battered melon",
-      "price": 300,
-      "returnPeriod": 28
+      title: "battered melon",
+      price: 300,
+      returnPeriod: 28
     }
   ],
-  "vatValue": "80",
-  "vatNumber": 262897,
-  "authorisationCode": 12345,
-  "vendor": "Tesco",
-  "storeLocation": {
-    "name": "Scunthorpe Superstore",
-    "town": "Scunthorpe",
-    "road": "Doncaster Road",
-    "postcode": "DN15 8GR",
-    "county": "Lincolnshire"
+  vatValue: "80",
+  vatNumber: 262897,
+  authorisationCode: 12345,
+  vendor: "Tesco",
+  storeLocation: {
+    name: "Scunthorpe Superstore",
+    town: "Scunthorpe",
+    road: "Doncaster Road",
+    postcode: "DN15 8GR",
+    county: "Lincolnshire"
   },
-  "app": "Rbuddie",
-  "tenderType": "visa",
-  "amountTendered": 400,
-  "change": 0
-}
+  app: "Rbuddie",
+  tenderType: "visa",
+  amountTendered: 400,
+  change: 0
+};
 
 class App extends Component {
   state = {
@@ -52,13 +52,24 @@ class App extends Component {
       <div className="App">
         <div className="App-top">
           <img src={logo} alt="RBuddie Logo" className="App-logo" />
-
         </div>
-        {this.state.latestScan === null ? <QrReader style={{ width: "100%" }} onScan={this.onScan} onError={this.onError} delay={300} facingMode="user" /> : <Button toggleQrReader={this.toggleReader} />}
+        {this.state.latestScan === null ? (
+          <QrReader
+            style={{ width: "100%" }}
+            onScan={this.onScan}
+            onError={this.onError}
+            delay={300}
+            facingMode="user"
+          />
+        ) : (
+          <ShowReceipt
+            receipt={this.state.latestScan}
+            isDuplicate={this.state.isDuplicate}
+          />
+        )}
         <div>{this.state.isError ? "This is not an RBuddie code" : ""}</div>
-        {this.state.latestScan ? <ShowReceipt receipt={this.state.latestScan} isDuplicate={this.state.isDuplicate} /> : ''}
-        <header className="App-header">
-        </header>
+        <header className="App-header"></header>
+        <Button toggleQrReader={this.toggleReader} />
       </div>
     );
   }
@@ -69,25 +80,39 @@ class App extends Component {
       var scannedDataObj = JSON.parse(dataString);
       // Check the parsed data is a valid object & a Rbuddie reciept
       if (scannedDataObj !== null && scannedDataObj.app === "Rbuddie") {
-
-        if (this.state.receiptsData.some(receipt => receipt.id === scannedDataObj.id)) {
-          this.setState({ latestScan: scannedDataObj, isDuplicate: true, isError: false, shouldScan: false })
+        if (
+          this.state.receiptsData.some(
+            receipt => receipt.id === scannedDataObj.id
+          )
+        ) {
+          this.setState({
+            latestScan: scannedDataObj,
+            isDuplicate: true,
+            isError: false,
+            shouldScan: false
+          });
         } else {
           let receiptsData = [...this.state.receiptsData];
           receiptsData.push(scannedDataObj);
-          this.setState({ receiptsData, latestScan: scannedDataObj, isDuplicate: false, isError: false, shouldScan: false })
+          this.setState({
+            receiptsData,
+            latestScan: scannedDataObj,
+            isDuplicate: false,
+            isError: false,
+            shouldScan: false
+          });
         }
       }
     }
   };
 
-  onError = (error) => {
+  onError = error => {
     console.log(error);
-  }
+  };
 
   toggleReader = () => {
-    this.setState({ latestScan: null, renderReceipt: false })
-  }
+    this.setState({ latestScan: null, renderReceipt: false });
+  };
 }
 
 export default App;
