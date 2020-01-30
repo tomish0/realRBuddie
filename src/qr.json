@@ -15,18 +15,17 @@
       "returnPeriod": 28
     }
   ],
-  "vatValue": "80",
+  "vatValue": 80,
   "vatNumber": 262897,
   "authorisationCode": 12345,
   "vendor": "Tesco",
   "storeName": "Scunthorpe Superstore",
-  "storePhoneNo": 020 8753 8888,
+  "storePhoneNo": "020 8753 8888",
   "storeLocation": {
-    "name": "Tesco",
+    "company": "Tesco Supermarkets Ltd",
+    "road": "42 Doncaster Road",
     "town": "Scunthorpe",
-    "road": "Doncaster Road",
-    "postcode": "DN15 8GR",
-    "county": "Lincolnshire"
+    "postcode": "DN15 8GR"
   },
   "app": "Rbuddie",
   "tenderType": "VISA",

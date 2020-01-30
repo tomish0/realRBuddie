@@ -2,17 +2,31 @@
   /* background-color: blue; */
   margin: 0 auto;
   max-width: 320px;
-  padding: 20px;
+  padding: 0 20px 10px 20px;
   font-size: 14px;
 }
 
 .receipt-elements {
-  margin: 10px 0;
+  margin: 4px 0;
 }
 
 .space-between {
   display: flex;
   justify-content: space-between;
+}
+
+.vendor {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 25px 0;
+  font-size: 25px;
+  text-decoration: underline;
+}
+
+.store-info-section {
+  margin-bottom: 20px;
+  padding: 0 15px;
+  border-bottom: 1px dashed black;
 }
 
 .location {
@@ -21,18 +35,31 @@
   padding: 0;
 }
 
-ul li {
+.location li {
   display: flex;
   justify-content: flex-end;
 }
 
-.vendor {
-  display: flex;
-  justify-content: center;
-  margin: 0 0 25px 0;
-  font-size: 20px;
+.total-costs-section {
+  margin-bottom: 20px;
+  border-bottom: 1px dashed black;
+  padding: 0 15px;
+  font-size: 12px;
 }
 
 .return-period {
-  font-size: 0.7em;
+  font-size: 0.8em;
+}
+
+.total-price {
+  font-weight: 700;
+  margin: 15px 0;
+}
+
+.vat {
+  margin-bottom: 20px;
+}
+
+.receipt-app-id {
+  padding: 0 15px;
 }
