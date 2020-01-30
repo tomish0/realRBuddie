@@ -1,0 +1,38 @@
+.full-receipt {
+  /* background-color: blue; */
+  margin: 0 auto;
+  max-width: 320px;
+  padding: 20px;
+  font-size: 14px;
+}
+
+.receipt-elements {
+  margin: 10px 0;
+}
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.location {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+ul li {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.vendor {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 25px 0;
+  font-size: 20px;
+}
+
+.return-period {
+  font-size: 0.7em;
+}

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import QrReader from "react-qr-reader";
 import ShowReceipt from "./component/ShowReceipt";
 import Button from "./component/Button";
-import "./styles/App.css";
+import "./App.css";
 import logo from "../public/logo.png";
 
 const reciptTest = {
@@ -53,6 +53,7 @@ class App extends Component {
         <div className="App-top">
           <img src={logo} alt="RBuddie Logo" className="App-logo" />
         </div>
+        <Button toggleQrReader={this.toggleReader} />
         {this.state.latestScan === null ? (
           <QrReader
             style={{ width: "100%" }}
@@ -69,7 +70,6 @@ class App extends Component {
         )}
         <div>{this.state.isError ? "This is not an RBuddie code" : ""}</div>
         <header className="App-header"></header>
-        <Button toggleQrReader={this.toggleReader} />
       </div>
     );
   }
