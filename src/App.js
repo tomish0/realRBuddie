@@ -2,44 +2,45 @@ import React, { Component } from "react";
 import QrReader from "react-qr-reader";
 import ShowReceipt from "./component/ShowReceipt";
 import Button from "./component/Button";
-import "./styles/App.css";
+import "./App.css";
 import logo from "../public/logo.png";
 
 const reciptTest = {
   id: "12ddasd343234s",
   totalPrice: 400,
   purchaseDate: "2020-01-20",
-  purchaseTime: "23:59:59:",
+  purchaseTime: "23:59:59",
   items: [
     {
-      title: "battered sausage",
+      title: "BATTERED SAUSAGE",
       price: 100,
       returnPeriod: 28
     },
     {
-      title: "battered melon",
+      title: "BATTERED MELON",
       price: 300,
       returnPeriod: 28
     }
   ],
-  vatValue: "80",
+  vatValue: 80,
   vatNumber: 262897,
   authorisationCode: 12345,
   vendor: "Tesco",
+  storeName: "Scunthorpe Superstore",
+  storePhoneNo: "020 8753 8888",
   storeLocation: {
-    name: "Scunthorpe Superstore",
+    company: "Tesco Supermarkets Ltd",
+    road: "42 Doncaster Road",
     town: "Scunthorpe",
-    road: "Doncaster Road",
-    postcode: "DN15 8GR",
-    county: "Lincolnshire"
+    postcode: "DN15 8GR"
   },
   app: "Rbuddie",
-  tenderType: "visa",
+  tenderType: "VISA",
   amountTendered: 400,
   change: 0
 };
 
-class App extends Component {
+class App extends Component { 
   state = {
     receiptsData: [],
     latestScan: reciptTest,
@@ -53,6 +54,7 @@ class App extends Component {
         <div className="App-top">
           <img src={logo} alt="RBuddie Logo" className="App-logo" />
         </div>
+        <Button toggleQrReader={this.toggleReader} />
         {this.state.latestScan === null ? (
           <QrReader
             style={{ width: "100%" }}
@@ -69,7 +71,6 @@ class App extends Component {
         )}
         <div>{this.state.isError ? "This is not an RBuddie code" : ""}</div>
         <header className="App-header"></header>
-        <Button toggleQrReader={this.toggleReader} />
       </div>
     );
   }
