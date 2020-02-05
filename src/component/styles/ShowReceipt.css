@@ -1,9 +1,9 @@
 .full-receipt {
-  /* background-color: blue; */
   margin: 0 auto;
   max-width: 320px;
   padding: 0 20px 10px 20px;
   font-size: 14px;
+  border-bottom: 1px solid black;
 }
 
 .receipt-elements {

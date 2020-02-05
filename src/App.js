@@ -3,58 +3,29 @@ import QrReader from "react-qr-reader";
 import ShowReceipt from "./component/ShowReceipt";
 import "./App.css";
 import logo from "../public/logo.png";
+import ButtonShowAllReceipts from "./component/ButtonShowAllReceipts";
+import ShowAllReceipts from "./component/ShowAllReceipts";
 
-const reciptTest = {
-  id: "12ddasd343234s",
-  totalPrice: 400,
-  purchaseDate: "2020-01-20",
-  purchaseTime: "23:59:59",
-  items: [
-    {
-      title: "BATTERED SAUSAGE",
-      price: 100,
-      returnPeriod: 28
-    },
-    {
-      title: "BATTERED MELON",
-      price: 300,
-      returnPeriod: 28
-    }
-  ],
-  vatValue: 80,
-  vatNumber: 262897,
-  authorisationCode: 12345,
-  vendor: "Tesco",
-  storeName: "Scunthorpe Superstore",
-  storePhoneNo: "020 8753 8888",
-  storeLocation: {
-    company: "Tesco Supermarkets Ltd",
-    road: "42 Doncaster Road",
-    town: "Scunthorpe",
-    postcode: "DN15 8GR"
-  },
-  app: "Rbuddie",
-  tenderType: "VISA",
-  amountTendered: 400,
-  change: 0
-};
-
-class App extends Component { 
+class App extends Component {
   state = {
     receiptsData: [],
-    latestScan: reciptTest,
+    showAllReceipts: false,
+    latestScan: null,
     isDuplicate: false,
     isError: false
   };
   render() {
-    console.log(this.state.receiptsData);
+    console.log(this.state);
+
     return (
       <div className="App">
         <div className="App-top">
           <img src={logo} alt="RBuddie Logo" className="App-logo" />
         </div>
-        
-        {this.state.latestScan === null ? (
+        <ButtonShowAllReceipts showAllReceipts={this.showAllReceipts} />
+        {this.state.showAllReceipts ? (
+          <ShowAllReceipts receiptsData={this.state.receiptsData} />
+        ) : this.state.latestScan === null ? (
           <QrReader
             style={{ width: "100%" }}
             onScan={this.onScan}
@@ -113,7 +84,11 @@ class App extends Component {
 
   toggleReader = () => {
     this.setState({ latestScan: null, renderReceipt: false });
-    console.log('hello')
+    console.log("hello");
+  };
+
+  showAllReceipts = () => {
+    this.setState({ showAllReceipts: !this.state.showAllReceipts });
   };
 }
 
