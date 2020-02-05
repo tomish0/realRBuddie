@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
 import ShowReceipt from "./component/ShowReceipt";
-import Button from "./component/Button";
 import "./App.css";
 import logo from "../public/logo.png";
 
@@ -54,7 +53,7 @@ class App extends Component {
         <div className="App-top">
           <img src={logo} alt="RBuddie Logo" className="App-logo" />
         </div>
-        <Button toggleQrReader={this.toggleReader} />
+        
         {this.state.latestScan === null ? (
           <QrReader
             style={{ width: "100%" }}
@@ -67,6 +66,7 @@ class App extends Component {
           <ShowReceipt
             receipt={this.state.latestScan}
             isDuplicate={this.state.isDuplicate}
+            toggleQrReader={this.toggleReader}
           />
         )}
         <div>{this.state.isError ? "This is not an RBuddie code" : ""}</div>
@@ -113,6 +113,7 @@ class App extends Component {
 
   toggleReader = () => {
     this.setState({ latestScan: null, renderReceipt: false });
+    console.log('hello')
   };
 }
 
