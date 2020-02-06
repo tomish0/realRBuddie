@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
 import ShowReceipt from "./component/ShowReceipt";
-import "./App.css";
+import "./styles/App.css";
 import logo from "../public/logo.png";
 import ButtonShowAllReceipts from "./component/ButtonShowAllReceipts";
 import ShowAllReceipts from "./component/ShowAllReceipts";
@@ -19,10 +19,23 @@ class App extends Component {
 
     return (
       <div className="App">
-        <div className="App-top">
+        <nav className="App-top">
           <img src={logo} alt="RBuddie Logo" className="App-logo" />
-        </div>
-        <ButtonShowAllReceipts showAllReceipts={this.showAllReceipts} />
+          {/* Button in the nav bar that will take you to ShowAllReceipts comp. 
+          Calls showAllReceipts function (App: line 91) which changes the state property showAllReceipts to its opposite*/}
+          <div>
+            <ButtonShowAllReceipts showAllReceipts={this.showAllReceipts} />
+          </div>
+        </nav>
+
+        {/* Statement with three if, else situations:
+        1) If ButtonShowAllReceipts is clicked, this causes the showAllReceipts function to setState to true, 
+        therefore showing all scanned receipts stored in receiptsData[] which is passed into ShowAllReceipts comp. 
+        If not clicked, state property showAllReceipts remains false and next condition is evaluated.
+        2) If there has been no receipt scanned then the state property latestScan remains null, 
+        meaning the QrReader is shown. 
+        If there is a rbuddie qr code shown, then the onScan function alters the state property latestScan to the scannedDataObj,
+        which is passed into the ShowReceipt comp*/}
         {this.state.showAllReceipts ? (
           <ShowAllReceipts receiptsData={this.state.receiptsData} />
         ) : this.state.latestScan === null ? (
@@ -40,8 +53,7 @@ class App extends Component {
             toggleQrReader={this.toggleReader}
           />
         )}
-        <div>{this.state.isError ? "This is not an RBuddie code" : ""}</div>
-        <header className="App-header"></header>
+        <div>{this.state.isError ? "This is not an RBuddie code" : null}</div>
       </div>
     );
   }

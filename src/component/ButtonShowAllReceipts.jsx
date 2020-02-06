@@ -5,7 +5,7 @@ class ButtonShowAllReceipts extends Component {
   render() {
     return (
       <button
-        className="btn"
+        className="show-all-btn"
         type="button"
         onClick={this.props.showAllReceipts}
       >
