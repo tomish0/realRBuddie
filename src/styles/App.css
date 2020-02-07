@@ -39,4 +39,6 @@ h1 {
   font-size: large;
 }
 
-
+.not-rbuddie-receipt {
+  z-index: 100;
+}

@@ -35,7 +35,8 @@ class App extends Component {
         2) If there has been no receipt scanned then the state property latestScan remains null, 
         meaning the QrReader is shown. 
         If there is a rbuddie qr code shown, then the onScan function alters the state property latestScan to the scannedDataObj,
-        which is passed into the ShowReceipt comp*/}
+        which is passed into the ShowReceipt comp
+        3) The ShowReceipt comp shows the scanned receipt*/}
         {this.state.showAllReceipts ? (
           <ShowAllReceipts receiptsData={this.state.receiptsData} />
         ) : this.state.latestScan === null ? (
@@ -65,27 +66,35 @@ class App extends Component {
       // Check the parsed data is a valid object & a Rbuddie reciept
       if (scannedDataObj !== null && scannedDataObj.app === "Rbuddie") {
         if (
+          // Check to see if receipt is already stored in receiptsData - a duplicate
           this.state.receiptsData.some(
             receipt => receipt.id === scannedDataObj.id
           )
         ) {
+          // If yes then show receipt but don't push duplicate into receiptsDate
           this.setState({
             latestScan: scannedDataObj,
             isDuplicate: true,
-            isError: false,
-            shouldScan: false
+            isError: false
           });
         } else {
+          // The receipt isn't a duplicate so you can then put receipt into receiptsData & show
+          // Use spread operator to put receipt into array with other receipts, not replace
           let receiptsData = [...this.state.receiptsData];
+          // Push valid receipt object into receiptsData array
           receiptsData.push(scannedDataObj);
           this.setState({
             receiptsData,
             latestScan: scannedDataObj,
             isDuplicate: false,
-            isError: false,
-            shouldScan: false
+            isError: false
           });
         }
+      } else {
+        // Changing isError state to true to print "This is not an RBuddie code"
+        this.setState({
+          isError: true
+        });
       }
     }
   };
