@@ -10,13 +10,14 @@ class FilterReceipts extends Component {
           type="text"
           placeholder="Search by vendor"
         />
+        {/* <div>{this.props.filteredDataError ? '' : "You're filter failed so here are all your receipts"}</div> */}
       </div>
     );
   }
 
   onInputChange = event => {
     this.props.filter(event.target.value);
-    
+
   };
 }
 

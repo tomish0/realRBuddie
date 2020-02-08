@@ -9,6 +9,7 @@ class App extends Component {
   state = {
     receiptsData: [],
     filteredData: [],
+    filteredDataError: true,
     latestScan: null,
     isDuplicate: false,
     isError: false,
@@ -101,7 +102,7 @@ class App extends Component {
     const filteredData = this.state.receiptsData.filter(receipt => {
       return receipt.vendor === value;
     });
-    this.setState({ filteredData: filteredData });
+    this.setState({ filteredData: filteredData, filteredDataError: false})
 
     console.log("Filtered", filteredData);
     console.log(this.state);
