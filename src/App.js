@@ -8,15 +8,13 @@ import NotificationBar from "./component/NotificationBar";
 class App extends Component {
   state = {
     receiptsData: [],
-    showAllReceipts: false,
+    filteredData: [],
     latestScan: null,
     isDuplicate: false,
     isError: false,
     mode: 1
   };
   render() {
-    console.log(this.state);
-
     return (
       <div className="App">
         <Navigation toggleMode={this.toggleMode} mode={this.state.mode} />
@@ -36,14 +34,20 @@ class App extends Component {
             />
           </div>
         ) : (
-          <ShowAllReceipts receiptsData={this.state.receiptsData} />
+          <ShowAllReceipts
+            receiptsData={
+              this.state.filteredData.length > 0
+                ? this.state.filteredData
+                : this.state.receiptsData
+            }
+            filter={this.filter}
+          />
         )}
       </div>
     );
   }
 
   onScan = dataString => {
-    console.log(dataString);
     if (dataString) {
       var scannedDataObj = JSON.parse(dataString);
       // Check the parsed data is a valid object & a Rbuddie reciept
@@ -84,21 +88,27 @@ class App extends Component {
     }
   };
 
-  onError = error => {
-    console.log(error);
+  toggleMode = () => {
+    this.setState({
+      mode: this.state.mode === 0 ? 1 : 0,
+      isError: false,
+      isDuplicate: false
+    });
   };
 
-  // toggleReader = () => {
-  //   this.setState({ latestScan: null, renderReceipt: false });
-  //   console.log("hello");
-  // };
+  filter = value => {
+    // const reg = new RegExp(value, "g");
+    const filteredData = this.state.receiptsData.filter(receipt => {
+      return receipt.vendor === value;
+    });
+    this.setState({ filteredData: filteredData });
 
-  // showAllReceipts = () => {
-  //   this.setState({ showAllReceipts: !this.state.showAllReceipts });
-  // };
+    console.log("Filtered", filteredData);
+    console.log(this.state);
+  };
 
-  toggleMode = () => {
-    this.setState({ mode: this.state.mode === 0 ? 1 : 0, isError: false, isDuplicate: false });
+  onError = error => {
+    console.log(error);
   };
 }
 
