@@ -1,10 +1,8 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
-import ShowReceipt from "./component/ShowReceipt";
 import "./styles/App.css";
-import logo from "../public/logo.png";
-import ButtonShowAllReceipts from "./component/ButtonShowAllReceipts";
 import ShowAllReceipts from "./component/ShowAllReceipts";
+import Navigation from "./component/Navigation";
 
 class App extends Component {
   state = {
@@ -12,21 +10,15 @@ class App extends Component {
     showAllReceipts: false,
     latestScan: null,
     isDuplicate: false,
-    isError: false
+    isError: false,
+    mode: 1
   };
   render() {
     console.log(this.state);
 
     return (
       <div className="App">
-        <nav className="App-top">
-          <img src={logo} alt="RBuddie Logo" className="App-logo" />
-          {/* Button in the nav bar that will take you to ShowAllReceipts comp. 
-          Calls showAllReceipts function (App: line 91) which changes the state property showAllReceipts to its opposite*/}
-          <div>
-            <ButtonShowAllReceipts showAllReceipts={this.showAllReceipts} />
-          </div>
-        </nav>
+        <Navigation toggleMode={this.toggleMode} mode={this.state.mode}/>
 
         {/* Statement with three if, else situations:
         1) If ButtonShowAllReceipts is clicked, this causes the showAllReceipts function to setState to true, 
@@ -37,9 +29,7 @@ class App extends Component {
         If there is a rbuddie qr code shown, then the onScan function alters the state property latestScan to the scannedDataObj,
         which is passed into the ShowReceipt comp
         3) The ShowReceipt comp shows the scanned receipt*/}
-        {this.state.showAllReceipts ? (
-          <ShowAllReceipts receiptsData={this.state.receiptsData} />
-        ) : this.state.latestScan === null ? (
+        {this.state.mode ? (
           <QrReader
             style={{ width: "100%" }}
             onScan={this.onScan}
@@ -48,11 +38,7 @@ class App extends Component {
             facingMode="user"
           />
         ) : (
-          <ShowReceipt
-            receipt={this.state.latestScan}
-            isDuplicate={this.state.isDuplicate}
-            toggleQrReader={this.toggleReader}
-          />
+          <ShowAllReceipts receiptsData={this.state.receiptsData} />
         )}
         <div>{this.state.isError ? "This is not an RBuddie code" : null}</div>
       </div>
@@ -83,11 +69,13 @@ class App extends Component {
           let receiptsData = [...this.state.receiptsData];
           // Push valid receipt object into receiptsData array
           receiptsData.push(scannedDataObj);
+          
           this.setState({
             receiptsData,
             latestScan: scannedDataObj,
             isDuplicate: false,
-            isError: false
+            isError: false,
+            mode: 0
           });
         }
       } else {
@@ -110,6 +98,10 @@ class App extends Component {
 
   showAllReceipts = () => {
     this.setState({ showAllReceipts: !this.state.showAllReceipts });
+  };
+
+  toggleMode = () => {
+    this.setState({ mode: this.state.mode === 0 ? 1 : 0 });
   };
 }
 

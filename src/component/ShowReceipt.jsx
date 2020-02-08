@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import "../styles/ShowReceipt.css";
-import Button from "./Button";
 
 class ShowReceipt extends Component {
   state = {};
@@ -27,7 +26,6 @@ class ShowReceipt extends Component {
 
     return (
       <div className="full-receipt">
-        <Button toggleQrReader={this.props.toggleQrReader} />
         <div className="receipt-elements vendor">{receipt.vendor}</div>
         <div className="store-info-section">
           <div className="receipt-elements space-between">
