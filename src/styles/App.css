@@ -11,12 +11,15 @@ html {
 }
 
 .App-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
   background-image: linear-gradient(to bottom,#fff 5%,#4787F6);
 }
 
 .App-logo {
   margin: 25px 15px;
-  width: 200px;
+  width: 150px;
 }
 
 .App-header {
@@ -36,4 +39,6 @@ h1 {
   font-size: large;
 }
 
-
+.not-rbuddie-receipt {
+  z-index: 100;
+}

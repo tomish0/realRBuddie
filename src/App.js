@@ -1,60 +1,35 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
-import ShowReceipt from "./component/ShowReceipt";
-import "./App.css";
-import logo from "../public/logo.png";
+import "./styles/App.css";
+import ShowAllReceipts from "./component/ShowAllReceipts";
+import Navigation from "./component/Navigation";
 
-const reciptTest = {
-  id: "12ddasd343234s",
-  totalPrice: 400,
-  purchaseDate: "2020-01-20",
-  purchaseTime: "23:59:59",
-  items: [
-    {
-      title: "BATTERED SAUSAGE",
-      price: 100,
-      returnPeriod: 28
-    },
-    {
-      title: "BATTERED MELON",
-      price: 300,
-      returnPeriod: 28
-    }
-  ],
-  vatValue: 80,
-  vatNumber: 262897,
-  authorisationCode: 12345,
-  vendor: "Tesco",
-  storeName: "Scunthorpe Superstore",
-  storePhoneNo: "020 8753 8888",
-  storeLocation: {
-    company: "Tesco Supermarkets Ltd",
-    road: "42 Doncaster Road",
-    town: "Scunthorpe",
-    postcode: "DN15 8GR"
-  },
-  app: "Rbuddie",
-  tenderType: "VISA",
-  amountTendered: 400,
-  change: 0
-};
-
-class App extends Component { 
+class App extends Component {
   state = {
     receiptsData: [],
-    latestScan: reciptTest,
+    showAllReceipts: false,
+    latestScan: null,
     isDuplicate: false,
-    isError: false
+    isError: false,
+    mode: 1
   };
   render() {
-    console.log(this.state.receiptsData);
+    console.log(this.state);
+
     return (
       <div className="App">
-        <div className="App-top">
-          <img src={logo} alt="RBuddie Logo" className="App-logo" />
-        </div>
-        
-        {this.state.latestScan === null ? (
+        <Navigation toggleMode={this.toggleMode} mode={this.state.mode}/>
+
+        {/* Statement with three if, else situations:
+        1) If ButtonShowAllReceipts is clicked, this causes the showAllReceipts function to setState to true, 
+        therefore showing all scanned receipts stored in receiptsData[] which is passed into ShowAllReceipts comp. 
+        If not clicked, state property showAllReceipts remains false and next condition is evaluated.
+        2) If there has been no receipt scanned then the state property latestScan remains null, 
+        meaning the QrReader is shown. 
+        If there is a rbuddie qr code shown, then the onScan function alters the state property latestScan to the scannedDataObj,
+        which is passed into the ShowReceipt comp
+        3) The ShowReceipt comp shows the scanned receipt*/}
+        {this.state.mode ? (
           <QrReader
             style={{ width: "100%" }}
             onScan={this.onScan}
@@ -63,14 +38,9 @@ class App extends Component {
             facingMode="user"
           />
         ) : (
-          <ShowReceipt
-            receipt={this.state.latestScan}
-            isDuplicate={this.state.isDuplicate}
-            toggleQrReader={this.toggleReader}
-          />
+          <ShowAllReceipts receiptsData={this.state.receiptsData} />
         )}
-        <div>{this.state.isError ? "This is not an RBuddie code" : ""}</div>
-        <header className="App-header"></header>
+        <div>{this.state.isError ? "This is not an RBuddie code" : null}</div>
       </div>
     );
   }
@@ -82,27 +52,37 @@ class App extends Component {
       // Check the parsed data is a valid object & a Rbuddie reciept
       if (scannedDataObj !== null && scannedDataObj.app === "Rbuddie") {
         if (
+          // Check to see if receipt is already stored in receiptsData - a duplicate
           this.state.receiptsData.some(
             receipt => receipt.id === scannedDataObj.id
           )
         ) {
+          // If yes then show receipt but don't push duplicate into receiptsDate
           this.setState({
             latestScan: scannedDataObj,
             isDuplicate: true,
-            isError: false,
-            shouldScan: false
+            isError: false
           });
         } else {
+          // The receipt isn't a duplicate so you can then put receipt into receiptsData & show
+          // Use spread operator to put receipt into array with other receipts, not replace
           let receiptsData = [...this.state.receiptsData];
+          // Push valid receipt object into receiptsData array
           receiptsData.push(scannedDataObj);
+          
           this.setState({
             receiptsData,
             latestScan: scannedDataObj,
             isDuplicate: false,
             isError: false,
-            shouldScan: false
+            mode: 0
           });
         }
+      } else {
+        // Changing isError state to true to print "This is not an RBuddie code"
+        this.setState({
+          isError: true
+        });
       }
     }
   };
@@ -113,7 +93,15 @@ class App extends Component {
 
   toggleReader = () => {
     this.setState({ latestScan: null, renderReceipt: false });
-    console.log('hello')
+    console.log("hello");
+  };
+
+  showAllReceipts = () => {
+    this.setState({ showAllReceipts: !this.state.showAllReceipts });
+  };
+
+  toggleMode = () => {
+    this.setState({ mode: this.state.mode === 0 ? 1 : 0 });
   };
 }
 
