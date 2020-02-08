@@ -7,13 +7,14 @@ class ShowAllReceipts extends Component {
     console.log("rec data xxx: ", this.props.receiptsData);
     return (
       <div>
+        {this.props.receiptsData.length == 0 && "You have no receipts"}
         {this.props.receiptsData.map((receipt, index) => {
           return (
             <div key={index}>
               <ShowReceipt
                 receipt={receipt}
                 isDuplicate={false}
-                toggleQrReader={() => {}}
+                // toggleQrReader={() => {}}
               />
             </div>
           );
