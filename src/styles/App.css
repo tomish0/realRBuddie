@@ -15,11 +15,12 @@ html {
   align-items: center;
   justify-content: space-around;
   background-image: linear-gradient(to bottom,#fff 5%,#4787F6);
+  color: white;
 }
 
 .App-logo {
   margin: 25px 15px;
-  width: 150px;
+  width: 100px;
 }
 
 .App-header {
