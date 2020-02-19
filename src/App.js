@@ -9,44 +9,32 @@ class App extends Component {
   state = {
     receiptsData: [],
     filteredData: [],
-    filteredDataError: true,
+    filteredDataError: false,
     latestScan: null,
     isDuplicate: false,
     isError: false,
     mode: 1
   };
-  render() {
-    return (
-      <div className="App">
-        <Navigation toggleMode={this.toggleMode} mode={this.state.mode} />
 
-        {this.state.mode ? (
-          <div>
-            <NotificationBar
-              isError={this.state.isError}
-              isDuplicate={this.state.isDuplicate}
-            />
-            <QrReader
-              style={{ width: "100%" }}
-              onScan={this.onScan}
-              onError={this.onError}
-              delay={300}
-              facingMode="user"
-            />
-          </div>
-        ) : (
-          <ShowAllReceipts
-            receiptsData={
-              this.state.filteredData.length > 0
-                ? this.state.filteredData
-                : this.state.receiptsData
-            }
-            filter={this.filter}
-          />
-        )}
-      </div>
-    );
+  componentDidMount() {
+    const receiptsData = JSON.parse(localStorage.getItem("receiptsData"));
+
+    if (receiptsData !== null) {
+      this.setState({ receiptsData });
+    }
   }
+
+  deleteAllReceipts = () => {
+    this.setState({ receiptsData: [] });
+    localStorage.setItem("receiptsData", null);
+  };
+
+  deleteReceipt = receiptID => {
+    let receiptsData = [...this.state.receiptsData];
+    receiptsData.splice(receiptID, 1);
+    this.setState({ receiptsData });
+    localStorage.setItem("receiptsData", JSON.stringify(receiptsData));
+  };
 
   onScan = dataString => {
     if (dataString) {
@@ -79,6 +67,8 @@ class App extends Component {
             isError: false,
             mode: 0
           });
+
+          localStorage.setItem("receiptsData", JSON.stringify(receiptsData));
         }
       } else {
         // Changing isError state to true to print "This is not an RBuddie code"
@@ -98,11 +88,11 @@ class App extends Component {
   };
 
   filter = value => {
-    // const reg = new RegExp(value, "g");
     const filteredData = this.state.receiptsData.filter(receipt => {
-      return receipt.vendor === value;
+      return receipt.vendor.toLowerCase().includes(value.toLowerCase());
     });
-    this.setState({ filteredData: filteredData, filteredDataError: false})
+    const filteredDataError = filteredData.length > 0 ? false : true
+    this.setState({ filteredData, filteredDataError });
 
     console.log("Filtered", filteredData);
     console.log(this.state);
@@ -111,6 +101,42 @@ class App extends Component {
   onError = error => {
     console.log(error);
   };
+
+  render() {
+    return (
+      <div className="App">
+        <Navigation toggleMode={this.toggleMode} mode={this.state.mode} />
+
+        {this.state.mode ? (
+          <div>
+            <NotificationBar
+              isError={this.state.isError}
+              isDuplicate={this.state.isDuplicate}
+            />
+            <QrReader
+              style={{ width: "100%" }}
+              onScan={this.onScan}
+              onError={this.onError}
+              delay={300}
+              facingMode="user"
+            />
+          </div>
+        ) : (
+          <ShowAllReceipts
+            receiptsData={
+              this.state.filteredData.length > 0
+                ? this.state.filteredData
+                : this.state.receiptsData
+            }
+            filter={this.filter}
+            filteredDataError={this.state.filteredDataError}
+            deleteAllReceipts={this.deleteAllReceipts}
+            deleteReceipt={this.deleteReceipt}
+          />
+        )}
+      </div>
+    );
+  }
 }
 
 export default App;

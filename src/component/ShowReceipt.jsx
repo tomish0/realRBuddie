@@ -4,6 +4,14 @@ import "../styles/ShowReceipt.css";
 class ShowReceipt extends Component {
   state = {};
 
+  dateToTime = purchaseDate => {
+    let currentDate = new Date();
+    let receiptDate = new Date(purchaseDate);
+    let difference = currentDate.getTime() - receiptDate.getTime();
+
+    return Math.round(difference / 1000 / 60 / 60 / 24);
+  };
+
   render() {
     console.log("rec rendered", this.props.receipt.items);
 
@@ -24,9 +32,12 @@ class ShowReceipt extends Component {
       );
     });
 
+    const receiptAge = this.dateToTime(receipt.purchaseDate);
+
     return (
       <div className="full-receipt">
         <div className="receipt-elements vendor">{receipt.vendor}</div>
+        <div className={receiptAge < 27 ? "blue" : "red"}>Receipt Age: {receiptAge}</div>
         <div className="store-info-section">
           <div className="receipt-elements space-between">
             <div>{receipt.storeName}</div>
@@ -76,6 +87,9 @@ class ShowReceipt extends Component {
           <div>{receipt.app}</div>
           <div>id: {receipt.id}</div>
         </div>
+        <button onClick={() => this.props.deleteReceipt(this.props.index)}>
+          Delete me
+        </button>
       </div>
     );
   }
