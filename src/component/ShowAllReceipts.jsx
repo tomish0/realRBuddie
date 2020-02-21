@@ -7,12 +7,25 @@ class ShowAllReceipts extends Component {
   render() {
     return (
       <div>
-        <FilterReceipts filter={this.props.filter} />
-        {this.props.receiptsData.length == 0 && "You have no receipts"}
+        {this.props.receiptsData.length > 0 ? (
+          <div>
+            <FilterReceipts filter={this.props.filter} filteredDataError={this.props.filteredDataError}/>
+            <button onClick={this.props.deleteAllReceipts}>
+              Clear receipts
+            </button>
+          </div>
+        ) : null}
+
+        {this.props.receiptsData.length === 0 && "You have no receipts"}
         {this.props.receiptsData.map((receipt, index) => {
           return (
             <div key={index}>
-              <ShowReceipt receipt={receipt} isDuplicate={false} />
+              <ShowReceipt
+                receipt={receipt}
+                isDuplicate={false}
+                deleteReceipt={this.props.deleteReceipt}
+                index={index}
+              />
             </div>
           );
         })}
