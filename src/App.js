@@ -91,7 +91,7 @@ class App extends Component {
     const filteredData = this.state.receiptsData.filter(receipt => {
       return receipt.vendor.toLowerCase().includes(value.toLowerCase());
     });
-    const filteredDataError = filteredData.length > 0 ? false : true
+    const filteredDataError = filteredData.length > 0 ? false : true;
     this.setState({ filteredData, filteredDataError });
 
     console.log("Filtered", filteredData);
@@ -106,34 +106,35 @@ class App extends Component {
     return (
       <div className="App">
         <Navigation toggleMode={this.toggleMode} mode={this.state.mode} />
-
-        {this.state.mode ? (
-          <div>
-            <NotificationBar
-              isError={this.state.isError}
-              isDuplicate={this.state.isDuplicate}
+        <div className="main">
+          {this.state.mode ? (
+            <div>
+              <NotificationBar
+                isError={this.state.isError}
+                isDuplicate={this.state.isDuplicate}
+              />
+              <QrReader
+                style={{ width: "100%" }}
+                onScan={this.onScan}
+                onError={this.onError}
+                delay={300}
+                facingMode="user"
+              />
+            </div>
+          ) : (
+            <ShowAllReceipts
+              receiptsData={
+                this.state.filteredData.length > 0
+                  ? this.state.filteredData
+                  : this.state.receiptsData
+              }
+              filter={this.filter}
+              filteredDataError={this.state.filteredDataError}
+              deleteAllReceipts={this.deleteAllReceipts}
+              deleteReceipt={this.deleteReceipt}
             />
-            <QrReader
-              style={{ width: "100%" }}
-              onScan={this.onScan}
-              onError={this.onError}
-              delay={300}
-              facingMode="user"
-            />
-          </div>
-        ) : (
-          <ShowAllReceipts
-            receiptsData={
-              this.state.filteredData.length > 0
-                ? this.state.filteredData
-                : this.state.receiptsData
-            }
-            filter={this.filter}
-            filteredDataError={this.state.filteredDataError}
-            deleteAllReceipts={this.deleteAllReceipts}
-            deleteReceipt={this.deleteReceipt}
-          />
-        )}
+          )}
+        </div>
       </div>
     );
   }

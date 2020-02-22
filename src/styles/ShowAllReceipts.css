@@ -1,0 +1,31 @@
+.show_all_receipts_top {
+  display: flex;
+  justify-content: space-around;
+}
+
+.no-receipts {
+  display: flex;
+  justify-content: center;
+}
+
+.show_all_receipts_bottom {
+  display: flex;
+  justify-content: center;
+}
+
+.show_all_receipts_bottom button {
+  color: white;
+  margin: 10px;
+  padding: 5px;
+  width: 130px;
+  font-size: 0.7em;
+  border-radius: 20px;
+  border: 2px solid rgb(129, 171, 241);
+  background-color: rgb(71, 135, 247);
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.show_all_receipts_bottom button:hover {
+  background-color: rgb(129, 171, 241); /* Green */
+}

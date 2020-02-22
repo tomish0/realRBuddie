@@ -37,7 +37,11 @@ class ShowReceipt extends Component {
     return (
       <div className="full-receipt">
         <div className="receipt-elements vendor">{receipt.vendor}</div>
-        <div className={receiptAge < 27 ? "blue" : "red"}>Receipt Age: {receiptAge}</div>
+        <div
+          className={receiptAge < 27 ? "receipt-age-blue" : "receipt-age-red"}
+        >
+          Receipt Age: {receiptAge} days
+        </div>
         <div className="store-info-section">
           <div className="receipt-elements space-between">
             <div>{receipt.storeName}</div>
@@ -87,9 +91,11 @@ class ShowReceipt extends Component {
           <div>{receipt.app}</div>
           <div>id: {receipt.id}</div>
         </div>
-        <button onClick={() => this.props.deleteReceipt(this.props.index)}>
-          Delete me
-        </button>
+        <div className="delete-receipt-btn">
+          <button onClick={() => this.props.deleteReceipt(this.props.index)}>
+            Delete
+          </button>
+        </div>
       </div>
     );
   }

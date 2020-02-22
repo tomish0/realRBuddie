@@ -1,45 +1,21 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat|Roboto&display=swap");
+
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box;
+  /* background-color: rgb(199, 229, 241); */
 }
-*, *:before, *:after {
+*,
+*:before,
+*:after {
   box-sizing: inherit;
 }
 
 .App {
-  font-family: Open Sans; 
+  font-family: "Montserrat";
 }
 
-.App-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background-image: linear-gradient(to bottom,#fff 5%,#4787F6);
-  color: white;
+.main {
+  margin-top: 90px;
 }
 
-.App-logo {
-  margin: 25px 15px;
-  width: 100px;
-}
-
-.App-header {
-  font-size: 1.2em;
-  margin: 0;
-  color: #05E32C;
-}
-
-h1 {
-  margin: auto 15px;
-  padding: 20px 0;
-  color: #05E32C;
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
-}
-
-.not-rbuddie-receipt {
-  z-index: 100;
-}

@@ -1,22 +1,24 @@
 import React, { Component } from "react";
 import ShowReceipt from "./ShowReceipt";
 import FilterReceipts from "./FilterReceipts";
+import "../styles/ShowAllReceipts.css";
 
 class ShowAllReceipts extends Component {
   state = {};
   render() {
     return (
       <div>
-        {this.props.receiptsData.length > 0 ? (
-          <div>
-            <FilterReceipts filter={this.props.filter} filteredDataError={this.props.filteredDataError}/>
-            <button onClick={this.props.deleteAllReceipts}>
-              Clear receipts
-            </button>
-          </div>
-        ) : null}
-
-        {this.props.receiptsData.length === 0 && "You have no receipts"}
+        <div className="show_all_receipts_top">
+          {this.props.receiptsData.length > 0 ? (
+            <div>
+              <FilterReceipts
+                filter={this.props.filter}
+                filteredDataError={this.props.filteredDataError}
+              />
+            </div>
+          ) : null}
+        </div>
+       <div className="no-receipts">{this.props.receiptsData.length === 0 && "You have no receipts"}</div> 
         {this.props.receiptsData.map((receipt, index) => {
           return (
             <div key={index}>
@@ -29,6 +31,11 @@ class ShowAllReceipts extends Component {
             </div>
           );
         })}
+        <div className="show_all_receipts_bottom">
+          <button onClick={this.props.deleteAllReceipts}>
+            Delete All Receipts
+          </button>
+        </div>
       </div>
     );
   }

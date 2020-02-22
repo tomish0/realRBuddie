@@ -1,0 +1,7 @@
+.notification {
+    display: flex;
+    justify-content: center;
+    color: rgb(67, 157, 27);
+    font-weight: bold;
+    font-size: 1.3em;
+}
