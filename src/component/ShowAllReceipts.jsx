@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import ShowReceipt from "./ShowReceipt";
 import FilterReceipts from "./FilterReceipts";
+import "../styles/ShowAllReceipts.css"
 
 class ShowAllReceipts extends Component {
   state = {};
@@ -8,10 +9,11 @@ class ShowAllReceipts extends Component {
     return (
       <div>
         {this.props.receiptsData.length > 0 ? (
-          <div>
+          <div className="show_all_receipts_top">
+            <i class="fas fa-search"></i>
             <FilterReceipts filter={this.props.filter} filteredDataError={this.props.filteredDataError}/>
             <button onClick={this.props.deleteAllReceipts}>
-              Delete receipts
+              Delete All Receipts
             </button>
           </div>
         ) : null}

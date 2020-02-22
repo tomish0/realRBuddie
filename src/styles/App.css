@@ -12,14 +12,18 @@ html {
 }
 
 .App {
-  font-family: 'Montserrat';
+  font-family: "Montserrat";
 }
 
 .App-top {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  background-image: linear-gradient(to bottom,rgb(200, 225, 245) 1%,rgb(7, 77, 197));
+  background-image: linear-gradient(
+    to bottom,
+    rgb(200, 225, 245) 1%,
+    rgb(7, 77, 197)
+  );
   color: white;
   font-size: 1em;
 }

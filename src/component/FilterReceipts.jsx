@@ -1,10 +1,11 @@
 import React, { Component } from "react";
+import "../styles/Filter.css"
 
 class FilterReceipts extends Component {
   state = {};
   render() {
     return (
-      <div>
+      <div className="filter">
         <input
           onChange={this.onInputChange}
           type="text"
