@@ -11,7 +11,7 @@ class ShowAllReceipts extends Component {
           <div>
             <FilterReceipts filter={this.props.filter} filteredDataError={this.props.filteredDataError}/>
             <button onClick={this.props.deleteAllReceipts}>
-              Clear receipts
+              Delete receipts
             </button>
           </div>
         ) : null}
