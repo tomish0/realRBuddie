@@ -15,25 +15,7 @@ html {
   font-family: "Montserrat";
 }
 
-.App-top {
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  background-image: linear-gradient(
-    to bottom,
-    rgb(200, 225, 245) 1%,
-    rgb(7, 77, 197)
-  );
-  color: white;
-  font-size: 1em;
+.main {
+  margin-top: 90px;
 }
 
-.App-logo {
-  margin: 5px 0;
-  width: 60px;
-}
-
-.App-top-switch {
-  display: flex;
-  align-items: center;
-}

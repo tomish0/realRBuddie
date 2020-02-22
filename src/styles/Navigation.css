@@ -1,3 +1,29 @@
+.App-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  background-image: linear-gradient(
+    to bottom,
+    rgb(200, 225, 245) 1%,
+    rgb(7, 77, 197)
+  );
+  color: white;
+  font-size: 1em;
+  top: 0;
+  position: fixed;
+  width: 100%;
+}
+
+.App-logo {
+  margin: 5px 0;
+  width: 60px;
+}
+
+.App-top-switch {
+  display: flex;
+  align-items: center;
+}
+
 /* The switch - the box around the slider */
 .switch {
   position: relative;
