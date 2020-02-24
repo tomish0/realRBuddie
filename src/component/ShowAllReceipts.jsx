@@ -8,11 +8,11 @@ class ShowAllReceipts extends Component {
   render() {
     return (
       <div>
+
         <div className="show_filter">
           {this.props.receiptsData.length > 0 ? (
-            <div>
+            <div> 
               <FilterReceipts
-              mode={this.props.mode}
                 filter={this.props.filter}
                 filteredDataError={this.props.filteredDataError}
               />
@@ -20,7 +20,9 @@ class ShowAllReceipts extends Component {
           ) : null}
         </div>
        <div className="no-receipts">{this.props.receiptsData.length === 0 && "You have no receipts"}</div> 
+        
         {this.props.receiptsData.map((receipt, index) => {
+          {/* Itarate through all the receipts data and displays all receipts */ }
           return (
             <div key={index}>
               <ShowReceipt

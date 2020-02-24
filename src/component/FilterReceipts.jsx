@@ -4,6 +4,7 @@ import "../styles/Filter.css";
 class FilterReceipts extends Component {
   state = {};
 
+  // everytime there is a key/word input, this method is invoked and filters all receipts based on the value. this used filtered method from App.
   onInputChange = event => {
     this.props.filter(event.target.value);
   };
