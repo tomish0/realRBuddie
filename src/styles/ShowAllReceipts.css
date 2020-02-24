@@ -1,24 +1,22 @@
-.show_all_receipts_top {
-  display: flex;
-  justify-content: space-around;
-}
-
 .no-receipts {
   display: flex;
   justify-content: center;
+  color: rgb(67, 157, 27);
+  font-size: 1.3em;
 }
 
-.show_all_receipts_bottom {
+.delete-all-receipts {
   display: flex;
   justify-content: center;
 }
 
-.show_all_receipts_bottom button {
+.delete-all-receipts button {
   color: white;
-  margin: 10px;
+  margin: 15px 0 25px 0;
   padding: 5px;
-  width: 130px;
-  font-size: 0.7em;
+  width: 170px;
+  height: 40px;
+  font-size: 1em;
   border-radius: 20px;
   border: 2px solid rgb(129, 171, 241);
   background-color: rgb(71, 135, 247);
@@ -26,6 +24,6 @@
   cursor: pointer;
 }
 
-.show_all_receipts_bottom button:hover {
+.delete-all-receipts button:hover {
   background-color: rgb(129, 171, 241); /* Green */
 }

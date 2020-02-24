@@ -3,6 +3,11 @@ import "../styles/Filter.css";
 
 class FilterReceipts extends Component {
   state = {};
+
+  onInputChange = event => {
+    this.props.filter(event.target.value);
+  };
+
   render() {
     return (
       <div className="filter">
@@ -22,10 +27,6 @@ class FilterReceipts extends Component {
       </div>
     );
   }
-
-  onInputChange = event => {
-    this.props.filter(event.target.value);
-  };
 }
 
 export default FilterReceipts;

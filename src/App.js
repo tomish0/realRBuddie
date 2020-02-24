@@ -83,7 +83,8 @@ class App extends Component {
     this.setState({
       mode: this.state.mode === 0 ? 1 : 0,
       isError: false,
-      isDuplicate: false
+      isDuplicate: false,
+      filteredDataError: false
     });
   };
 
@@ -128,6 +129,7 @@ class App extends Component {
                   ? this.state.filteredData
                   : this.state.receiptsData
               }
+              mode={this.mode}
               filter={this.filter}
               filteredDataError={this.state.filteredDataError}
               deleteAllReceipts={this.deleteAllReceipts}
