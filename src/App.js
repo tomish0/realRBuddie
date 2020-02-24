@@ -84,7 +84,8 @@ class App extends Component {
     this.setState({
       mode: this.state.mode === 0 ? 1 : 0,
       isError: false,
-      isDuplicate: false
+      isDuplicate: false,
+      filteredDataError: false
     });
   };
 
@@ -93,8 +94,10 @@ class App extends Component {
     const filteredData = this.state.receiptsData.filter(receipt => {
       return receipt.vendor.toLowerCase().includes(value.toLowerCase()); // filter receipts changed to make non case sensitive 
     });
+
     // Evaluate if filter returns any receipts and update state.
     const filteredDataError = filteredData.length > 0 ? false : true
+
     this.setState({ filteredData, filteredDataError });
 
     console.log("Filtered", filteredData);
@@ -108,38 +111,43 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+
         <Navigation toggleMode={this.toggleMode} mode={this.state.mode} /> {/*Create navigation; toggle mode function sent down into Navigation Component as prop to change the Mode; Mode sent down as prop to set state of slider*/}
 
-        {this.state.mode ? (
-          <div>
-            <NotificationBar
-              isError={this.state.isError}
-              isDuplicate={this.state.isDuplicate} {/*send down error as prop */}
-            />
-            <QrReader
-              style={{ width: "100%" }}
-              onScan={this.onScan}
-              onError={this.onError}
-              delay={300}
-              facingMode="user"
-            /> {/*Sending down width style; Send down onScan function for when there is a scan; 
+        <div className="main">
+          {this.state.mode ? (
+            <div>
+              <NotificationBar
+                isError={this.state.isError}
+                isDuplicate={this.state.isDuplicate} {/*send down error as prop */}
+              />
+              <QrReader
+                style={{ width: "100%" }}
+                onScan={this.onScan}
+                onError={this.onError}
+                delay={300}
+                facingMode="user"
+              /> {/*Sending down width style; Send down onScan function for when there is a scan; 
             Delay: Set intervals between scans (milliseconds)*/}
-
-
-          </div>
-        ) : (
+            </div>
+          ) : (
             <ShowAllReceipts
               receiptsData={
                 this.state.filteredData.length > 0
                   ? this.state.filteredData
                   : this.state.receiptsData
               }
+
               filter={this.filter} {/* Create show all receipts sending */}
+
               filteredDataError={this.state.filteredDataError}
               deleteAllReceipts={this.deleteAllReceipts}
               deleteReceipt={this.deleteReceipt}
             />
           )}
+
+        </div>
+
       </div>
     );
   }

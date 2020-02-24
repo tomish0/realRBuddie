@@ -11,16 +11,18 @@ class Navigation extends Component {
     return (
       <nav className="App-top">
         <img src={logo} alt="RBuddie Logo" className="App-logo" />
-        <div>Scan</div>
-        <label className="switch">
-          <input
-            type="checkbox"
-            onChange={this.props.toggleMode}
-            checked={checked}
-          />
-          <span className="slider round" />
-        </label>
-        <div>Your Receipts</div>
+        <div className="App-top-switch">
+          <div>Scan</div>
+          <label className="switch">
+            <input
+              type="checkbox"
+              onChange={this.props.toggleMode}
+              checked={checked}
+            />
+            <span className="slider round" />
+          </label>
+          <div>Receipts</div>
+        </div>
       </nav>
     );
   }

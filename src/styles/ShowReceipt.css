@@ -1,7 +1,7 @@
 .full-receipt {
-  margin: 20px auto;
+  margin: 10px auto;
   max-width: 320px;
-  padding: 0 20px 10px 20px;
+  padding: 10px 10px;
   font-size: 14px;
   border-bottom: 1px solid black;
 }
@@ -18,14 +18,27 @@
 .vendor {
   display: flex;
   justify-content: center;
-  margin: 0 0 25px 0;
+  margin: 0 0 15px 0;
   font-size: 25px;
   text-decoration: underline;
 }
 
+.receipt-age-red {
+  color: red;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 15px 0;
+}
+
+.receipt-age-blue {
+  color: blue;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 15px 0;
+}
+
 .store-info-section {
   margin-bottom: 20px;
-  padding: 0 15px;
   border-bottom: 1px dashed black;
 }
 
@@ -60,14 +73,29 @@
   margin-bottom: 20px;
 }
 
-.receipt-app-id {
-  padding: 0 15px;
+.id-section {
+  padding: 0;
 }
 
-.red {
-  color: red;
+.delete-receipt-btn {
+  display: flex;
+  justify-content: center;
+  
 }
 
-.blue {
-  color: blue;
+.delete-receipt-btn button {
+  color: white;
+  margin: 10px;
+  padding: 5px;
+  width: 100px;
+  font-size: 1.2em;
+  border-radius: 20px;
+  border: 2px solid rgb(129, 171, 241);
+  background-color: rgb(71, 135, 247);
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.delete-receipt-btn button:hover {
+  background-color: rgb(129, 171, 241); /* Green */
 }

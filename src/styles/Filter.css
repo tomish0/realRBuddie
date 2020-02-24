@@ -1,0 +1,36 @@
+.filter {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.filter-input-i {
+  display: flex;
+  align-items: center;
+  margin: 10px;
+  font-size: 1.3em;
+  color: rgb(50, 120, 240);
+}
+
+.filter-input-i i {
+  padding: 0 5px;
+}
+
+.filter-input-i input {
+  font-size: 0.5em;
+  padding: 5px;
+  border: 2px solid rgb(50, 120, 240);
+  border-radius: 10px;
+  user-select: none;
+}
+
+.filter-data-error {
+  display: flex;
+  align-items: center;
+  color: rgb(67, 157, 27);
+  font-size: 0.85em;
+}
+
+.filter-data-error p {
+  margin-top: 7px;
+}

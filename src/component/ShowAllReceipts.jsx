@@ -1,22 +1,26 @@
 import React, { Component } from "react";
 import ShowReceipt from "./ShowReceipt";
 import FilterReceipts from "./FilterReceipts";
+import "../styles/ShowAllReceipts.css";
 
 class ShowAllReceipts extends Component {
   state = {};
   render() {
     return (
       <div>
-        {this.props.receiptsData.length > 0 ? (
-          <div> {/* adding the functionality of deleting receipts from show all receipts*/}
-            <FilterReceipts filter={this.props.filter} filteredDataError={this.props.filteredDataError} />
-            <button onClick={this.props.deleteAllReceipts}>
-              Clear receipts
-            </button>
-          </div>
-        ) : null}
 
-        {this.props.receiptsData.length === 0 && "You have no receipts"}
+        <div className="show_filter">
+          {this.props.receiptsData.length > 0 ? (
+            <div> 
+              <FilterReceipts
+                filter={this.props.filter}
+                filteredDataError={this.props.filteredDataError}
+              />
+            </div>
+          ) : null}
+        </div>
+       <div className="no-receipts">{this.props.receiptsData.length === 0 && "You have no receipts"}</div> 
+        
         {this.props.receiptsData.map((receipt, index) => {
           {/* Itarate through all the receipts data and displays all receipts */ }
           return (
@@ -30,6 +34,11 @@ class ShowAllReceipts extends Component {
             </div>
           );
         })}
+        <div className="delete-all-receipts">
+          {this.props.receiptsData.length > 1 ? <button onClick={this.props.deleteAllReceipts}>
+            Delete All Receipts
+          </button> : null}
+        </div>
       </div>
     );
   }

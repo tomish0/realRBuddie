@@ -1,0 +1,29 @@
+.no-receipts {
+  display: flex;
+  justify-content: center;
+  color: rgb(67, 157, 27);
+  font-size: 1.3em;
+}
+
+.delete-all-receipts {
+  display: flex;
+  justify-content: center;
+}
+
+.delete-all-receipts button {
+  color: white;
+  margin: 15px 0 25px 0;
+  padding: 5px;
+  width: 170px;
+  height: 40px;
+  font-size: 1em;
+  border-radius: 20px;
+  border: 2px solid rgb(129, 171, 241);
+  background-color: rgb(71, 135, 247);
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.delete-all-receipts button:hover {
+  background-color: rgb(129, 171, 241); /* Green */
+}
