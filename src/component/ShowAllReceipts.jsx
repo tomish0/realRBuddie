@@ -8,8 +8,8 @@ class ShowAllReceipts extends Component {
     return (
       <div>
         {this.props.receiptsData.length > 0 ? (
-          <div>
-            <FilterReceipts filter={this.props.filter} filteredDataError={this.props.filteredDataError}/>
+          <div> {/* adding the functionality of deleting receipts from show all receipts*/}
+            <FilterReceipts filter={this.props.filter} filteredDataError={this.props.filteredDataError} />
             <button onClick={this.props.deleteAllReceipts}>
               Clear receipts
             </button>
@@ -18,6 +18,7 @@ class ShowAllReceipts extends Component {
 
         {this.props.receiptsData.length === 0 && "You have no receipts"}
         {this.props.receiptsData.map((receipt, index) => {
+          {/* Itarate through all the receipts data and displays all receipts */ }
           return (
             <div key={index}>
               <ShowReceipt

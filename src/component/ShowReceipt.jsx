@@ -3,7 +3,7 @@ import "../styles/ShowReceipt.css";
 
 class ShowReceipt extends Component {
   state = {};
-
+  // below code shows expire date(how many days left) on the receipt. 
   dateToTime = purchaseDate => {
     let currentDate = new Date();
     let receiptDate = new Date(purchaseDate);
@@ -17,7 +17,7 @@ class ShowReceipt extends Component {
 
     const receipt = this.props.receipt;
     const items = receipt.items;
-
+    // below code iterating through each receipt and shows receipts title, price and return period.
     const eachItem = items.map((item, i) => {
       return (
         <div className="receipt-elements each-item" key={i}>
