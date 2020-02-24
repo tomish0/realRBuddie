@@ -8,10 +8,9 @@ class ShowAllReceipts extends Component {
   render() {
     return (
       <div>
-
         <div className="show_filter">
           {this.props.receiptsData.length > 0 ? (
-            <div> 
+            <div>
               <FilterReceipts
                 filter={this.props.filter}
                 filteredDataError={this.props.filteredDataError}
@@ -19,10 +18,13 @@ class ShowAllReceipts extends Component {
             </div>
           ) : null}
         </div>
-       <div className="no-receipts">{this.props.receiptsData.length === 0 && "You have no receipts"}</div> 
-        
+        <div className="no-receipts">
+          {this.props.receiptsData.length === 0 && "You have no receipts"}
+        </div>
+
         {this.props.receiptsData.map((receipt, index) => {
-          {/* Itarate through all the receipts data and displays all receipts */ }
+          /* Itarate through all the receipts data and displays all receipts */
+
           return (
             <div key={index}>
               <ShowReceipt
@@ -35,9 +37,11 @@ class ShowAllReceipts extends Component {
           );
         })}
         <div className="delete-all-receipts">
-          {this.props.receiptsData.length > 1 ? <button onClick={this.props.deleteAllReceipts}>
-            Delete All Receipts
-          </button> : null}
+          {this.props.receiptsData.length > 1 ? (
+            <button onClick={this.props.deleteAllReceipts}>
+              Delete All Receipts
+            </button>
+          ) : null}
         </div>
       </div>
     );

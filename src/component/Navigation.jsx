@@ -5,8 +5,10 @@ import "../styles/Navigation.css";
 class Navigation extends Component {
   state = {};
   render() {
-
-    var checked = this.props.mode === 0 ? true : false; {/* assigning variable checked on the navigation bar */ }
+    var checked =
+      this.props.mode === 0
+        ? true
+        : false; /* assigning variable checked on the navigation bar */
 
     return (
       <nav className="App-top">
