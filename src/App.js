@@ -11,35 +11,42 @@ class App extends Component {
     filteredData: [], //Array with receipts after this has been filtered.
     filteredDataError: false, //when filtered data has no matching receipts.
     latestScan: null,
-    isDuplicate: false,// Set to true when a receipt has been scanned already.
+    isDuplicate: false, // Set to true when a receipt has been scanned already.
     isError: false, // Set to true when the receipt is not a RBuddie receipt.
     mode: 1 // When mode is 1, app is on scan mode; When 0, view receipt mode.
   };
 
   componentDidMount() {
-    const receiptsData = JSON.parse(localStorage.getItem("receiptsData")); {/* retreving receipt data from local storage, parsing from string to object and assigning to local variable */ }
-
+    const receiptsData = JSON.parse(localStorage.getItem("receiptsData"));
+    /* retreving receipt data from local storage, parsing from string to object and assigning to local variable */
     if (receiptsData !== null) {
-      {/* Evaluate if the receipts data is empty */ }
-      this.setState({ receiptsData }); {/* updates state with receipt data */ }
+      /* Evaluate if the receipts data is empty */
+      this.setState({ receiptsData });
+      /* updates state with receipt data */
     }
   }
 
   deleteAllReceipts = () => {
-    this.setState({ receiptsData: [] }); {/* when this function is called sets the state Empty */ }
-    localStorage.setItem("receiptsData", null); {/*Deleting all receipts from storage */ }
+    this.setState({ receiptsData: [] });
+    /* when this function is called sets the state Empty */
+    localStorage.setItem("receiptsData", null);
+    /*Deleting all receipts from storage */
   };
 
   deleteReceipt = receiptID => {
     let receiptsData = [...this.state.receiptsData];
-    receiptsData.splice(receiptID, 1); {/* Make copy of the receipts data and Delete */ }
+    receiptsData.splice(receiptID, 1);
+    /* Make copy of the receipts data and Delete */
     this.setState({ receiptsData });
-    localStorage.setItem("receiptsData", JSON.stringify(receiptsData)); {/* update storage with new receipts data as string*/ }
+    localStorage.setItem("receiptsData", JSON.stringify(receiptsData));
+    /* update storage with new receipts data as string*/
   };
 
   onScan = dataString => {
     if (dataString) {
-      var scannedDataObj = JSON.parse(dataString); /* if dataString is truthy, coverting data string to an object */
+      var scannedDataObj = JSON.parse(
+        dataString
+      ); /* if dataString is truthy, coverting data string to an object */
       // Check the parsed data is a valid object & a Rbuddie reciept
       if (scannedDataObj !== null && scannedDataObj.app === "Rbuddie") {
         if (
@@ -92,11 +99,11 @@ class App extends Component {
   // filter method: Takes string as argument for filtering(e.g 'T or t' will return tesco receipt)
   filter = value => {
     const filteredData = this.state.receiptsData.filter(receipt => {
-      return receipt.vendor.toLowerCase().includes(value.toLowerCase()); // filter receipts changed to make non case sensitive 
+      return receipt.vendor.toLowerCase().includes(value.toLowerCase()); // filter receipts changed to make non case sensitive
     });
 
     // Evaluate if filter returns any receipts and update state.
-    const filteredDataError = filteredData.length > 0 ? false : true
+    const filteredDataError = filteredData.length > 0 ? false : true;
 
     this.setState({ filteredData, filteredDataError });
 
@@ -111,15 +118,16 @@ class App extends Component {
   render() {
     return (
       <div className="App">
+        {/*Create navigation; toggle mode function sent down into Navigation Component as prop to change the Mode; Mode sent down as prop to set state of slider*/}
 
-        <Navigation toggleMode={this.toggleMode} mode={this.state.mode} /> {/*Create navigation; toggle mode function sent down into Navigation Component as prop to change the Mode; Mode sent down as prop to set state of slider*/}
-
+        <Navigation toggleMode={this.toggleMode} mode={this.state.mode} />
         <div className="main">
           {this.state.mode ? (
             <div>
               <NotificationBar
                 isError={this.state.isError}
-                isDuplicate={this.state.isDuplicate} {/*send down error as prop */}
+                isDuplicate={this.state.isDuplicate}
+                /*send down error as prop */
               />
               <QrReader
                 style={{ width: "100%" }}
@@ -127,7 +135,8 @@ class App extends Component {
                 onError={this.onError}
                 delay={300}
                 facingMode="user"
-              /> {/*Sending down width style; Send down onScan function for when there is a scan; 
+              />{" "}
+              {/*Sending down width style; Send down onScan function for when there is a scan; 
             Delay: Set intervals between scans (milliseconds)*/}
             </div>
           ) : (
@@ -137,17 +146,14 @@ class App extends Component {
                   ? this.state.filteredData
                   : this.state.receiptsData
               }
-
-              filter={this.filter} {/* Create show all receipts sending */}
-
+              /* Create show all receipts sending */
+              filter={this.filter}
               filteredDataError={this.state.filteredDataError}
               deleteAllReceipts={this.deleteAllReceipts}
               deleteReceipt={this.deleteReceipt}
             />
           )}
-
         </div>
-
       </div>
     );
   }
