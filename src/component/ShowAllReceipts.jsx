@@ -8,10 +8,11 @@ class ShowAllReceipts extends Component {
   render() {
     return (
       <div>
-        <div className="show_all_receipts_top">
+        <div className="show_filter">
           {this.props.receiptsData.length > 0 ? (
             <div>
               <FilterReceipts
+              mode={this.props.mode}
                 filter={this.props.filter}
                 filteredDataError={this.props.filteredDataError}
               />
@@ -31,10 +32,10 @@ class ShowAllReceipts extends Component {
             </div>
           );
         })}
-        <div className="show_all_receipts_bottom">
-          <button onClick={this.props.deleteAllReceipts}>
+        <div className="delete-all-receipts">
+          {this.props.receiptsData.length > 1 ? <button onClick={this.props.deleteAllReceipts}>
             Delete All Receipts
-          </button>
+          </button> : null}
         </div>
       </div>
     );

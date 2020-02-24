@@ -27,8 +27,8 @@
 .filter-data-error {
   display: flex;
   align-items: center;
-  font-size: 0.8em;
-  color: rgb(50, 120, 240);
+  color: rgb(67, 157, 27);
+  font-size: 0.85em;
 }
 
 .filter-data-error p {
