@@ -1,6 +1,8 @@
 .notification {
   display: flex;
   justify-content: center;
+  margin: 0;
+  padding: 20px 0;
   color: rgb(67, 157, 27);
   font-weight: bold;
   font-size: 1.3em;

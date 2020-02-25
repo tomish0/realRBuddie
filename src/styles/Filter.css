@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin: 10px 0 0 0;
 }
 
 .filter-input-i {
@@ -21,7 +22,7 @@
   padding: 5px;
   border: 2px solid rgb(50, 120, 240);
   border-radius: 10px;
-  user-select: none;
+  outline: none;
 }
 
 .filter-data-error {
@@ -32,5 +33,5 @@
 }
 
 .filter-data-error p {
-  margin-top: 7px;
+  margin: 0px;
 }
