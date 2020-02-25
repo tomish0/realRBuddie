@@ -13,9 +13,14 @@ html {
 
 .App {
   font-family: "Montserrat";
+  height: 100vh;
 }
 
-.main {
-  margin-top: 90px;
+.main-scan {
+  padding-top: 70px;
+  height: 100vh;
 }
 
+.main-receipts {
+  padding-top: 90px;
+}

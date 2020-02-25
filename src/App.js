@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import QrReader from "react-qr-reader";
 import "./styles/App.css";
+import "./styles/QRReader.css";
 import ShowAllReceipts from "./component/ShowAllReceipts";
 import Navigation from "./component/Navigation";
 import NotificationBar from "./component/NotificationBar";
@@ -121,25 +122,25 @@ class App extends Component {
         {/*Create navigation; toggle mode function sent down into Navigation Component as prop to change the Mode; Mode sent down as prop to set state of slider*/}
 
         <Navigation toggleMode={this.toggleMode} mode={this.state.mode} />
-        <div className="main">
-          {this.state.mode ? (
-            <div>
-              <NotificationBar
-                isError={this.state.isError}
-                isDuplicate={this.state.isDuplicate}
-                /*send down error as prop */
-              />
-              <QrReader
-                style={{ width: "100%" }}
-                onScan={this.onScan}
-                onError={this.onError}
-                delay={300}
-                facingMode="user"
-              />{" "}
-              {/*Sending down width style; Send down onScan function for when there is a scan; 
+
+        {this.state.mode ? (
+          <div className="main-scan">
+            <NotificationBar
+              isError={this.state.isError}
+              isDuplicate={this.state.isDuplicate}
+              /*send down error as prop */
+            />
+            <QrReader
+              onScan={this.onScan}
+              onError={this.onError}
+              delay={300}
+              facingMode="user"
+            />
+            {/*Sending down width style; Send down onScan function for when there is a scan; 
             Delay: Set intervals between scans (milliseconds)*/}
-            </div>
-          ) : (
+          </div>
+        ) : (
+          <div className="main-receipts">
             <ShowAllReceipts
               receiptsData={
                 this.state.filteredData.length > 0
@@ -152,8 +153,8 @@ class App extends Component {
               deleteAllReceipts={this.deleteAllReceipts}
               deleteReceipt={this.deleteReceipt}
             />
-          )}
-        </div>
+          </div>
+        )}
       </div>
     );
   }
