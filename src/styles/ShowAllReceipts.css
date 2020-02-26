@@ -9,14 +9,17 @@
 .delete-all-receipts {
   display: flex;
   justify-content: center;
-  position: sticky;
   background: white;
-  box-shadow: 0 2px 10px 0 rgba(50, 50, 50, 0.12), 0 2px 5px 0 rgba(50, 50, 50, 0.16);
+  box-shadow: 0 2px 10px 0 rgba(50, 50, 50, 0.12),
+    0 2px 5px 0 rgba(50, 50, 50, 0.16);
   bottom: 0;
-  /* overflow: hidden;
-  transition: all 0.3s ease-in;
-  z-index: 90;
-  opacity: 1; */
+  height: 0;
+  position: sticky;
+  transition: all 0.4s ease-in-out;
+}
+
+.delete-all-receipts-sticky {
+  height: 60px;
 }
 
 .delete-all-receipts button {
