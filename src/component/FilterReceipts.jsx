@@ -17,7 +17,7 @@ class FilterReceipts extends Component {
           <input
             onChange={this.onInputChange}
             type="text"
-            placeholder="Search by vendor"
+            placeholder="Search vendor, postcode or price"
           />
         </div>
         <div className="filter-data-error">

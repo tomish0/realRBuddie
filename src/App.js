@@ -63,8 +63,7 @@ class App extends Component {
             isError: false
           });
           // start a timer to reset isDuplicate
-          setTimeout(() => this.setState({isDuplicate: false}), 5000);
-
+          setTimeout(() => this.setState({ isDuplicate: false }), 5000);
         } else {
           // The receipt isn't a duplicate so you can then put receipt into receiptsData & show
           // Use spread operator to put receipt into array with other receipts, not replace
@@ -88,7 +87,7 @@ class App extends Component {
           isError: true
         });
         // start a timer to reset isError
-        setTimeout(() => this.setState({isError: false}), 5000);
+        setTimeout(() => this.setState({ isError: false }), 5000);
       }
     }
   };
@@ -105,7 +104,12 @@ class App extends Component {
   // filter method: Takes string as argument for filtering(e.g 'T or t' will return tesco receipt)
   filter = value => {
     const filteredData = this.state.receiptsData.filter(receipt => {
-      return receipt.vendor.toLowerCase().includes(value.toLowerCase()); // filter receipts changed to make non case sensitive
+      console.log(receipt);
+      return (
+        receipt.vendor.toLowerCase().includes(value.toLowerCase()) ||
+        receipt.storeLocation.postcode.toLowerCase().replace(/\s/g,"") == value.toLowerCase().replace(/\s/g,"") ||
+        receipt.totalPrice == value
+      ); // filter receipts changed to make non case sensitive
     });
 
     // Evaluate if filter returns any receipts and update state.

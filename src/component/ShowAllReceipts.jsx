@@ -19,13 +19,11 @@ class ShowAllReceipts extends Component {
 
   handleScroll = e => {
     const scrollY = window.scrollY;
-    console.log(`onScroll, window.scrollY: ${scrollY}`);
     if (scrollY > 400) {
       this.setState({ scroll: true });
     } else {
       return this.setState({ scroll: false });
     }
-    console.log(this.state);
   };
 
   render() {
