@@ -5,13 +5,13 @@ class NotificationBar extends Component {
   state = {};
   render() {
     return (
-      <p className="notification">
+      <div className="notification">
         {this.props.isError
-          ? "This is not an RBuddie receipt"
+          ? <div className="notification-isError">This is not an RBuddie receipt</div>
           : this.props.isDuplicate
-          ? "You already have this receipt!"
-          : "Ready to scan"}
-      </p>
+          ? <div className="notification-isDuplicate">You already have this receipt!</div>
+          : <div className="notification-scan">Ready to scan</div>}
+      </div>
     );
   }
 }

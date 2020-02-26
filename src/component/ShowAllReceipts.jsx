@@ -5,7 +5,8 @@ import "../styles/ShowAllReceipts.css";
 
 class ShowAllReceipts extends Component {
   state = {
-    scroll: false
+    scroll: false,
+    deleteClick: false
   };
 
   componentDidMount() {
@@ -65,10 +66,29 @@ class ShowAllReceipts extends Component {
               : "delete-all-receipts"
           }
         >
-          {this.props.receiptsData.length > 1 ? (
-            <button onClick={this.props.deleteAllReceipts}>
-              Delete All Receipts
-            </button>
+          {this.props.receiptsData.length > 1 &&
+          this.state.deleteClick === false ? (
+            <div>
+              <button onClick={() => this.setState({ deleteClick: true })}>
+                Delete All Receipts
+              </button>
+            </div>
+          ) : null}
+          {this.props.receiptsData.length > 1 &&
+          this.state.deleteClick === true ? (
+            <div>
+              <button
+                onClick={() => {
+                  this.props.deleteAllReceipts();
+                  this.setState({ deleteClick: false, scroll: false });
+                }}
+              >
+                Sure?
+              </button>
+              <button onClick={() => this.setState({ deleteClick: false })}>
+                Cancel
+              </button>
+            </div>
           ) : null}
         </div>
       </div>

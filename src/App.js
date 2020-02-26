@@ -62,6 +62,9 @@ class App extends Component {
             isDuplicate: true,
             isError: false
           });
+          // start a timer to reset isDuplicate
+          setTimeout(() => this.setState({isDuplicate: false}), 5000);
+
         } else {
           // The receipt isn't a duplicate so you can then put receipt into receiptsData & show
           // Use spread operator to put receipt into array with other receipts, not replace
@@ -84,6 +87,8 @@ class App extends Component {
         this.setState({
           isError: true
         });
+        // start a timer to reset isError
+        setTimeout(() => this.setState({isError: false}), 5000);
       }
     }
   };
