@@ -6,4 +6,7 @@
   height: 100%;
 }
 
-
+/* why won't work - targeting right place? */
+.qr-reader section section div {
+  box-shadow: rgba(23, 42, 150, 0.5) 0px 0px 0px 5px inset;
+}
