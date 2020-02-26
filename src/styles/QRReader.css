@@ -1,0 +1,9 @@
+.qr-reader {
+  height: calc(100% - 65px); 
+}
+
+.qr-reader section {
+  height: 100%;
+}
+
+

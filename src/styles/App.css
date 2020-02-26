@@ -3,7 +3,7 @@
 /* apply a natural box layout model to all elements, but allowing components to change */
 html {
   box-sizing: border-box;
-  /* background-color: rgb(199, 229, 241); */
+  height: 100%;
 }
 *,
 *:before,
@@ -13,9 +13,20 @@ html {
 
 .App {
   font-family: "Montserrat";
+  height: 100%;
+}
+
+.navigation {
+position: relative;
+height: 70px;
 }
 
 .main {
-  margin-top: 90px;
+  height: calc(100% - 70px);
 }
+
+.main-scan {
+  height: 100%;
+}
+
 
