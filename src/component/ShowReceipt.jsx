@@ -8,8 +8,8 @@ class ShowReceipt extends Component {
     let currentDate = new Date();
     let receiptDate = new Date(purchaseDate);
     let difference = currentDate.getTime() - receiptDate.getTime();
-
-    return Math.round(difference / 1000 / 60 / 60 / 24);
+    let days = Math.round(difference / 1000 / 60 / 60 / 24);
+    return 28 - days
   };
 
   render() {
@@ -32,15 +32,15 @@ class ShowReceipt extends Component {
       );
     });
 
-    const receiptAge = this.dateToTime(receipt.purchaseDate);
+    const daysToExpiry = this.dateToTime(receipt.purchaseDate);
 
     return (
       <div className="full-receipt">
         <div className="receipt-elements vendor">{receipt.vendor}</div>
         <div
-          className={receiptAge < 27 ? "receipt-age-blue" : "receipt-age-red"}
+          className={daysToExpiry > 0 ? "receipt-age-blue" : "receipt-age-red"}
         >
-          Receipt Age: {receiptAge} days
+          {daysToExpiry > 0 ? `Days left to return: ${daysToExpiry} days` : "Your receipt has expired"}
         </div>
         <div className="store-info-section">
           <div className="receipt-elements space-between">

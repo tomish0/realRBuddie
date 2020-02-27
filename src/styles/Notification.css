@@ -7,3 +7,15 @@
   font-weight: bold;
   font-size: 1.3em;
 }
+
+.notification-scan {
+  color: rgb(67, 157, 27);
+}
+
+.notification-isError {
+  color: red;
+}
+
+.notification-isDuplicate {
+  color: blue;
+}

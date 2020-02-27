@@ -39,3 +39,7 @@
 .delete-all-receipts button:hover {
   background-color: rgb(129, 171, 241); /* Green */
 }
+
+.delete-all-receipts-confirmation {
+  display: none;
+}
