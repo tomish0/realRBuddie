@@ -119,7 +119,7 @@ class App extends Component {
             <div>
               <NotificationBar
                 isError={this.state.isError}
-                isDuplicate={this.state.isDuplicate} {/*send down error as prop */}
+                isDuplicate={this.state.isDuplicate} /*send down error as prop */
               />
               <QrReader
                 style={{ width: "100%" }}
@@ -131,20 +131,20 @@ class App extends Component {
             Delay: Set intervals between scans (milliseconds)*/}
             </div>
           ) : (
-            <ShowAllReceipts
-              receiptsData={
-                this.state.filteredData.length > 0
-                  ? this.state.filteredData
-                  : this.state.receiptsData
-              }
+              <ShowAllReceipts
+                receiptsData={
+                  this.state.filteredData.length > 0
+                    ? this.state.filteredData
+                    : this.state.receiptsData
+                }
 
-              filter={this.filter} {/* Create show all receipts sending */}
+                filter={this.filter} {/* Create show all receipts sending */}
 
-              filteredDataError={this.state.filteredDataError}
-              deleteAllReceipts={this.deleteAllReceipts}
-              deleteReceipt={this.deleteReceipt}
-            />
-          )}
+                filteredDataError={this.state.filteredDataError}
+                deleteAllReceipts={this.deleteAllReceipts}
+                deleteReceipt={this.deleteReceipt}
+              />
+            )}
 
         </div>
 
