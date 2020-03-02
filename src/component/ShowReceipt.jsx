@@ -13,8 +13,6 @@ class ShowReceipt extends Component {
   };
 
   render() {
-    console.log("rec rendered", this.props.receipt.items);
-
     const receipt = this.props.receipt;
     const items = receipt.items;
     // below code iterating through each receipt and shows receipts title, price and return period.

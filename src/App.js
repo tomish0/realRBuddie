@@ -107,7 +107,7 @@ class App extends Component {
       console.log(receipt);
       return (
         receipt.vendor.toLowerCase().includes(value.toLowerCase()) ||
-        receipt.storeLocation.postcode.toLowerCase().replace(/\s/g,"") == value.toLowerCase().replace(/\s/g,"") ||
+        receipt.storeLocation.postcode.toLowerCase().replace(/\s/g, "") == value.toLowerCase().replace(/\s/g, "") ||
         receipt.totalPrice == value
       ); // filter receipts changed to make non case sensitive
     });
@@ -138,35 +138,35 @@ class App extends Component {
               <NotificationBar
                 isError={this.state.isError}
                 isDuplicate={this.state.isDuplicate}
-                /*send down error as prop */
+              /*send down error as prop */
               />
               <div className="qr-reader">
                 <QrReader
                   onScan={this.onScan}
                   onError={this.onError}
                   delay={300}
-                  facingMode="user"
+                /*facingMode="user"*/
                 />
               </div>
               {/*Sending down width style; Send down onScan function for when there is a scan; 
             Delay: Set intervals between scans (milliseconds)*/}
             </div>
           ) : (
-            <div className="main-receipts">
-              <ShowAllReceipts
-                receiptsData={
-                  this.state.filteredData.length > 0
-                    ? this.state.filteredData
-                    : this.state.receiptsData
-                }
-                /* Create show all receipts sending */
-                filter={this.filter}
-                filteredDataError={this.state.filteredDataError}
-                deleteAllReceipts={this.deleteAllReceipts}
-                deleteReceipt={this.deleteReceipt}
-              />
-            </div>
-          )}
+              <div className="main-receipts">
+                <ShowAllReceipts
+                  receiptsData={
+                    this.state.filteredData.length > 0
+                      ? this.state.filteredData
+                      : this.state.receiptsData
+                  }
+                  /* Create show all receipts sending */
+                  filter={this.filter}
+                  filteredDataError={this.state.filteredDataError}
+                  deleteAllReceipts={this.deleteAllReceipts}
+                  deleteReceipt={this.deleteReceipt}
+                />
+              </div>
+            )}
         </div>
       </div>
     );
