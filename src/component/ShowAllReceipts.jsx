@@ -52,7 +52,8 @@ class ShowAllReceipts extends Component {
                 receipt={receipt}
                 isDuplicate={false}
                 deleteReceipt={this.props.deleteReceipt}
-                index={index}
+                receiptId={receipt.id}
+                vendor={receipt.vendor}
               />
             </div>
           );
@@ -65,29 +66,29 @@ class ShowAllReceipts extends Component {
           }
         >
           {this.props.receiptsData.length > 1 &&
-          this.state.deleteClick === false ? (
-            <div>
-              <button onClick={() => this.setState({ deleteClick: true })}>
-                Delete All Receipts
+            this.state.deleteClick === false ? (
+              <div>
+                <button onClick={() => this.setState({ deleteClick: true })}>
+                  Delete All Receipts
               </button>
-            </div>
-          ) : null}
+              </div>
+            ) : null}
           {this.props.receiptsData.length > 1 &&
-          this.state.deleteClick === true ? (
-            <div>
-              <button
-                onClick={() => {
-                  this.props.deleteAllReceipts();
-                  this.setState({ deleteClick: false, scroll: false });
-                }}
-              >
-                Sure?
+            this.state.deleteClick === true ? (
+              <div>
+                <button
+                  onClick={() => {
+                    this.props.deleteAllReceipts();
+                    this.setState({ deleteClick: false, scroll: false });
+                  }}
+                >
+                  Sure?
               </button>
-              <button onClick={() => this.setState({ deleteClick: false })}>
-                Cancel
+                <button onClick={() => this.setState({ deleteClick: false })}>
+                  Cancel
               </button>
-            </div>
-          ) : null}
+              </div>
+            ) : null}
         </div>
       </div>
     );

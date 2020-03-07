@@ -13,7 +13,6 @@ class ShowReceipt extends Component {
   };
 
   render() {
-    console.log("rec rendered", this.props.receipt.items);
 
     const receipt = this.props.receipt;
     const items = receipt.items;
@@ -92,7 +91,7 @@ class ShowReceipt extends Component {
           <div>id: {receipt.id}</div>
         </div>
         <div className="delete-receipt-btn">
-          <button onClick={() => this.props.deleteReceipt(this.props.index)}>
+          <button onClick={() => this.props.deleteReceipt(this.props.receiptId, this.props.vendor)}>
             Delete
           </button>
         </div>
