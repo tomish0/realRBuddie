@@ -146,7 +146,7 @@ class App extends Component {
                   onScan={this.onScan}
                   onError={this.onError}
                   delay={300}
-                  facingMode="user"
+                  // facingMode="user"
                 />
               </div>
               {/*Sending down width style; Send down onScan function for when there is a scan; 
