@@ -14,6 +14,7 @@ html {
 .App {
   font-family: "Montserrat";
   height: 100%;
+  position: relative;
 }
 
 .navigation {
