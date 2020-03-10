@@ -24,6 +24,12 @@ height: 70px;
 
 .main {
   height: calc(100% - 70px);
+  
+}
+
+.main-receipts {
+  height: 100%;
+  overflow: auto;
 }
 
 .main-scan {
