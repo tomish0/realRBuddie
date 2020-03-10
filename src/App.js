@@ -5,12 +5,15 @@ import "./styles/QRReader.css";
 import ShowAllReceipts from "./component/ShowAllReceipts";
 import Navigation from "./component/Navigation";
 import NotificationBar from "./component/NotificationBar";
+import ExpiringModal from './component/ExpiringReceiptsModal'
 
 class App extends Component {
   state = {
     receiptsData: [], //contains all receipts in an Array.
     filteredData: [], //Array with receipts after this has been filtered.
     filteredValue: '',
+    expiringReceipts: [],
+    displayModal: true,
     filteredDataError: false, //when filtered data has no matching receipts.
     latestScan: null,
     isDuplicate: false, // Set to true when a receipt has been scanned already.
@@ -22,11 +25,23 @@ class App extends Component {
     const receiptsData = JSON.parse(localStorage.getItem("receiptsData"));
     /* retreving receipt data from local storage, parsing from string to object and assigning to local variable */
     if (receiptsData !== null) {
+      /* Check if there are expiring receipts */
+      const expiringReceipts = receiptsData.filter(receipt => this.dateToTime(receipt.purchaseDate) < 8);
+      console.log(expiringReceipts)
       /* Evaluate if the receipts data is empty */
-      this.setState({ receiptsData });
+      this.setState({ receiptsData, expiringReceipts });
       /* updates state with receipt data */
     }
   }
+
+
+  dateToTime = purchaseDate => {
+    let currentDate = new Date();
+    let receiptDate = new Date(purchaseDate);
+    let difference = currentDate.getTime() - receiptDate.getTime();
+    let days = Math.round(difference / 1000 / 60 / 60 / 24);
+    return 28 - days
+  };
 
   deleteAllReceipts = () => {
     this.setState({ receiptsData: [], filteredData: [] });
@@ -122,6 +137,10 @@ class App extends Component {
     this.setState({ filteredData, filteredDataError, filteredValue: value, receiptsData });
   };
 
+  closeModal = () => {
+    this.setState({ displayModal: false })
+  }
+
   onError = error => {
     console.log(error);
   };
@@ -154,6 +173,14 @@ class App extends Component {
             </div>
           ) : (
               <div className="main-receipts">
+                {
+                  this.state.expiringReceipts &&
+                  <ExpiringModal
+                    display={this.state.displayModal}
+                    expiringReceipts={this.state.expiringReceipts}
+                    func={this.closeModal}
+                  />
+                }
                 <ShowAllReceipts
                   receiptsData={
                     this.state.filteredData.length > 0

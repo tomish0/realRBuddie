@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../styles/ShowReceipt.css";
 
 class ShowReceipt extends Component {
-  state = {};
   // below code shows expire date(how many days left) on the receipt. 
   dateToTime = purchaseDate => {
     let currentDate = new Date();
