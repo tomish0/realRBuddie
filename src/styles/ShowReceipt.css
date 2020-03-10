@@ -5,7 +5,7 @@
   padding: 10px;
   font-size: 14px;
   border: 2px solid rgb(243, 240, 240);
-  /* border-radius: 20px; */
+  border-radius: 3px;
   background-color: white;
   box-shadow:  0px 0px 81px -43px rgba(8,8,8,1);
 }
@@ -25,6 +25,13 @@
   margin: 0 0 15px 0;
   font-size: 25px;
   text-decoration: underline;
+}
+
+.receipt-age-green {
+  color: green;
+  display: flex;
+  justify-content: center;
+  margin: 0 0 15px 0;
 }
 
 .receipt-age-red {

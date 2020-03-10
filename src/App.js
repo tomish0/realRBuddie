@@ -5,15 +5,15 @@ import "./styles/QRReader.css";
 import ShowAllReceipts from "./component/ShowAllReceipts";
 import Navigation from "./component/Navigation";
 import NotificationBar from "./component/NotificationBar";
-import ExpiringModal from './component/ExpiringReceiptsModal'
+import ExpiringModal from "./component/ExpiringReceiptsModal";
 
 class App extends Component {
   state = {
     receiptsData: [], //contains all receipts in an Array.
     filteredData: [], //Array with receipts after this has been filtered.
-    filteredValue: '',
+    filteredValue: "",
     expiringReceipts: [],
-    displayModal: true,
+    displayModal: false,
     filteredDataError: false, //when filtered data has no matching receipts.
     latestScan: null,
     isDuplicate: false, // Set to true when a receipt has been scanned already.
@@ -25,26 +25,32 @@ class App extends Component {
     const receiptsData = JSON.parse(localStorage.getItem("receiptsData"));
     /* retreving receipt data from local storage, parsing from string to object and assigning to local variable */
     if (receiptsData !== null) {
-      /* Check if there are expiring receipts */
-      const expiringReceipts = receiptsData.filter(receipt => this.dateToTime(receipt.purchaseDate) < 8);
-      console.log(expiringReceipts)
       /* Evaluate if the receipts data is empty */
-      this.setState({ receiptsData, expiringReceipts });
+      const expiringReceipts = receiptsData.filter(
+        receipt =>
+          this.dateToTime(receipt.purchaseDate) < 8 &&
+          this.dateToTime(receipt.purchaseDate) >= 0
+      );
+      /* Check if there are expiring receipts */
+      this.setState({ receiptsData });
       /* updates state with receipt data */
+      expiringReceipts.length !== 0
+        ? this.setState({ expiringReceipts, displayModal: true })
+        : null;
+      // if there are expiring receipts then show the display modal in the receipts mode
     }
   }
-
 
   dateToTime = purchaseDate => {
     let currentDate = new Date();
     let receiptDate = new Date(purchaseDate);
     let difference = currentDate.getTime() - receiptDate.getTime();
     let days = Math.round(difference / 1000 / 60 / 60 / 24);
-    return 28 - days
+    return 28 - days;
   };
 
   deleteAllReceipts = () => {
-    this.setState({ receiptsData: [], filteredData: [] });
+    this.setState({ receiptsData: [], filteredData: [], displayModal: false });
     /* when this function is called sets the state Empty */
     localStorage.setItem("receiptsData", null);
     /*Deleting all receipts from storage */
@@ -52,14 +58,25 @@ class App extends Component {
 
   deleteReceipt = (receiptId, vendor) => {
     let receiptsData = [...this.state.receiptsData];
-    const index = receiptsData.findIndex(x => x.id === receiptId && x.vendor === vendor)
-    console.log(index, receiptId, vendor);
+    const indexReceiptsData = receiptsData.findIndex(
+      x => x.id === receiptId && x.vendor === vendor
+    );
+    receiptsData.splice(indexReceiptsData, 1);
 
-    receiptsData.splice(index, 1);
+    const indexExpiringReceipts = this.state.expiringReceipts.findIndex(
+      x => x.id === receiptId && x.vendor === vendor
+    );
+    console.log(indexExpiringReceipts);
+    indexExpiringReceipts >= 0
+      ? this.state.expiringReceipts.splice(indexExpiringReceipts, 1)
+      : null;
+    if (this.state.expiringReceipts.length === 0) {
+      this.setState({ displayModal: false });
+    }
     /* Make copy of the receipts data and Delete */
-    // localStorage.setItem("receiptsData", JSON.stringify(receiptsData));
+    localStorage.setItem("receiptsData", JSON.stringify(receiptsData));
     /* update storage with new receipts data as string*/
-    this.filter(this.state.filteredValue, receiptsData)
+    this.filter(this.state.filteredValue, receiptsData);
   };
 
   onScan = dataString => {
@@ -99,6 +116,7 @@ class App extends Component {
           });
 
           localStorage.setItem("receiptsData", JSON.stringify(receiptsData));
+          this.filter("", this.state.receiptsData);
         }
       } else {
         // Changing isError state to true to print "This is not an RBuddie code"
@@ -116,36 +134,42 @@ class App extends Component {
       mode: this.state.mode === 0 ? 1 : 0,
       isError: false,
       isDuplicate: false,
-      filteredDataError: false
+      filteredDataError: false,
+      filteredData: []
     });
   };
 
   // filter method: Takes string as argument for filtering(e.g 'T or t' will return tesco receipt)
   filter = (value, receiptsData = this.state.receiptsData) => {
-
     const filteredData = receiptsData.filter(receipt => {
       return (
         receipt.vendor.toLowerCase().includes(value.toLowerCase()) ||
-        receipt.storeLocation.postcode.toLowerCase().replace(/\s/g, "") == value.toLowerCase().replace(/\s/g, "") ||
+        receipt.storeLocation.postcode.toLowerCase().replace(/\s/g, "") ==
+          value.toLowerCase().replace(/\s/g, "") ||
         receipt.totalPrice == value
       ); // filter receipts changed to make non case sensitive
     });
-    console.log('>', value, receiptsData, filteredData);
     // Evaluate if filter returns any receipts and update state.
     const filteredDataError = filteredData.length > 0 ? false : true;
 
-    this.setState({ filteredData, filteredDataError, filteredValue: value, receiptsData });
+    this.setState({
+      filteredData,
+      filteredDataError,
+      filteredValue: value,
+      receiptsData
+    });
   };
 
   closeModal = () => {
-    this.setState({ displayModal: false })
-  }
+    this.setState({ displayModal: false });
+  };
 
   onError = error => {
     console.log(error);
   };
 
   render() {
+    // console.log(this.state.receiptsData)
     return (
       <div className="App">
         {/*Create navigation; toggle mode function sent down into Navigation Component as prop to change the Mode; Mode sent down as prop to set state of slider*/}
@@ -158,13 +182,13 @@ class App extends Component {
               <NotificationBar
                 isError={this.state.isError}
                 isDuplicate={this.state.isDuplicate}
-              /*send down error as prop */
+                /*send down error as prop */
               />
               <div className="qr-reader">
                 <QrReader
                   onScan={this.onScan}
                   onError={this.onError}
-                  delay={300}
+                  delay={200}
                   // facingMode="user"
                 />
               </div>
@@ -172,29 +196,33 @@ class App extends Component {
             Delay: Set intervals between scans (milliseconds)*/}
             </div>
           ) : (
-              <div className="main-receipts">
-                {
-                  this.state.expiringReceipts &&
-                  <ExpiringModal
-                    display={this.state.displayModal}
-                    expiringReceipts={this.state.expiringReceipts}
-                    func={this.closeModal}
-                  />
+            <div
+              className={
+                this.state.displayModal
+                  ? "main-receipts"
+                  : "main-receipts expiring-receipts-modal-show"
+              }
+            >
+              <ExpiringModal
+                display={this.state.displayModal}
+                expiringReceipts={this.state.expiringReceipts}
+                func={this.closeModal}
+              />
+
+              <ShowAllReceipts
+                receiptsData={
+                  this.state.filteredData.length > 0
+                    ? this.state.filteredData
+                    : this.state.receiptsData
                 }
-                <ShowAllReceipts
-                  receiptsData={
-                    this.state.filteredData.length > 0
-                      ? this.state.filteredData
-                      : this.state.receiptsData
-                  }
-                  /* Create show all receipts sending */
-                  filter={this.filter}
-                  filteredDataError={this.state.filteredDataError}
-                  deleteAllReceipts={this.deleteAllReceipts}
-                  deleteReceipt={this.deleteReceipt}
-                />
-              </div>
-            )}
+                /* Create show all receipts sending */
+                filter={this.filter}
+                filteredDataError={this.state.filteredDataError}
+                deleteAllReceipts={this.deleteAllReceipts}
+                deleteReceipt={this.deleteReceipt}
+              />
+            </div>
+          )}
         </div>
       </div>
     );
