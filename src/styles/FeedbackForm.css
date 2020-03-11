@@ -1,0 +1,30 @@
+.feedback-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+}
+
+input {
+    border: 2px solid rgb(129, 171, 241);
+    font-family: 'Montserrat';
+    margin: 5px;
+    padding: 5px;
+    width: 180px;
+    font-size: 0.8em;
+}
+
+button {
+    font-family: 'Montserrat';
+    color: white;
+    margin: 10px;
+    padding: 5px;
+    width: 160px;
+    font-size: 0.9em;
+    border-radius: 20px;
+    border: 2px solid rgb(129, 171, 241);
+    background-color: rgb(71, 135, 247);
+    transition-duration: 0.4s;
+    cursor: pointer;
+    outline: none;
+  }

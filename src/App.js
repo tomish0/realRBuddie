@@ -6,6 +6,7 @@ import ShowAllReceipts from "./component/ShowAllReceipts";
 import Navigation from "./component/Navigation";
 import NotificationBar from "./component/NotificationBar";
 import ExpiringModal from "./component/ExpiringReceiptsModal";
+import FeedbackForm from "./component/FeedbackForm"
 
 class App extends Component {
   state = {
@@ -15,6 +16,7 @@ class App extends Component {
     filteredDataError: false, // Error when filtered data has no matching receipts.
     expiringReceipts: [], // Receipts that are within 8 days of 'expiry'
     displayModal: false, // Show / not show the expiring receipts modal component
+    showFeedback: false,
     isDuplicate: false, // Set to true when a receipt has already been scanned.
     isError: false, // Set to true when the receipt is not a RBuddie receipt.
     mode: 1 // When mode is 1, app is on scan mode; When 0, view receipt mode.
@@ -39,6 +41,19 @@ class App extends Component {
       expiringReceipts.length !== 0
         ? this.setState({ expiringReceipts, displayModal: true })
         : null;
+    }
+
+    let existingCount = localStorage.getItem("openCount") === null ? 0 : localStorage.getItem("openCount");
+    localStorage.setItem(
+      "openCount",
+      parseInt(existingCount) + 1
+    );
+    if (localStorage.getItem("openCount") == 10) {
+      this.setState({ showFeedback: true });
+    }
+    console.log(localStorage.getItem("openCount"))
+    if (localStorage.getItem("openCount") > 10) {
+       localStorage.setItem("openCount", '0') 
     }
   }
 
@@ -208,6 +223,9 @@ class App extends Component {
               <NotificationBar
                 isError={this.state.isError}
                 isDuplicate={this.state.isDuplicate}
+              />
+              <FeedbackForm 
+                showFeedback={this.state.showFeedback}
               />
               <div className="qr-reader">
                 {/* QrReader comp obtained from QrReader react package;
