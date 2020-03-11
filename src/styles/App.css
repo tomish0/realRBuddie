@@ -29,7 +29,7 @@ height: 70px;
 
 .main-receipts {
   height: 100%;
-  overflow: auto;
+  /* overflow: auto; */
 }
 
 .main-scan {

@@ -5,15 +5,15 @@ class ExpiringModal extends Component {
   render() {
     return (
       <div
-        className={this.props.display ? "expiring-receipts-modal" : "hidden"}
+        className={this.props.displayModal ? "expiring-receipts-modal" : "hidden"}
       >
         <div className="modal-content">
           <div className="modal-header">
             <h2>Receipts About To Expire</h2>
             <span
               id="close-fixed-mob"
-              className="fas fa-times close"
-              onClick={this.props.func}
+              className="fas fa-times close" 
+              onClick={this.props.closeModal}
             ></span>
           </div>
           <ul>

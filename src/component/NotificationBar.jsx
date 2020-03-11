@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import "../styles/Notification.css";
 
 class NotificationBar extends Component {
-  state = {};
   render() {
     return (
       <div className="notification">

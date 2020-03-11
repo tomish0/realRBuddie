@@ -3,7 +3,6 @@ import logo from "../../public/logo.png";
 import "../styles/Navigation.css";
 
 class Navigation extends Component {
-  state = {};
   render() {
     var checked =
       this.props.mode === 0
