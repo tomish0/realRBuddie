@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import "../styles/ShowReceipt.css";
 
 class ShowReceipt extends Component {
-  // below code shows expire date(how many days left) on the receipt. 
+  // below code shows expire date(how many days left) on the receipt.
   dateToTime = purchaseDate => {
     let currentDate = new Date();
     let receiptDate = new Date(purchaseDate);
     let difference = currentDate.getTime() - receiptDate.getTime();
     let days = Math.round(difference / 1000 / 60 / 60 / 24);
-    return 28 - days
+    return 28 - days;
   };
 
   render() {
-
     const receipt = this.props.receipt;
     const items = receipt.items;
     // below code iterating through each receipt and shows receipts title, price and return period.
@@ -36,9 +35,17 @@ class ShowReceipt extends Component {
       <div className="full-receipt">
         <div className="receipt-elements vendor">{receipt.vendor}</div>
         <div
-          className={daysToExpiry > 0 ? "receipt-age-blue" : "receipt-age-red"}
+          className={
+            daysToExpiry > 8
+              ? "receipt-age-green"
+              : daysToExpiry > 0
+              ? "receipt-age-blue"
+              : "receipt-age-red"
+          }
         >
-          {daysToExpiry > 0 ? `Days left to return: ${daysToExpiry} days` : "Your receipt has expired"}
+          {daysToExpiry > 0
+            ? `Expiry in: ${daysToExpiry} days`
+            : "EXPIRED"}
         </div>
         <div className="store-info-section">
           <div className="receipt-elements space-between">
@@ -87,10 +94,14 @@ class ShowReceipt extends Component {
         </div>
         <div className="receipt-elements space-between receipt-app-id">
           <div>{receipt.app}</div>
-          <div>id: {receipt.id}</div>
+          <div>#{receipt.id}</div>
         </div>
         <div className="delete-receipt-btn">
-          <button onClick={() => this.props.deleteReceipt(this.props.receiptId, this.props.vendor)}>
+          <button
+            onClick={() =>
+              this.props.deleteReceipt(this.props.receiptId, this.props.vendor)
+            }
+          >
             Delete
           </button>
         </div>
