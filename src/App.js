@@ -6,7 +6,7 @@ import ShowAllReceipts from "./component/ShowAllReceipts";
 import Navigation from "./component/Navigation";
 import NotificationBar from "./component/NotificationBar";
 import ExpiringModal from "./component/ExpiringReceiptsModal";
-import FeedbackForm from "./component/FeedbackForm"
+import FeedbackForm from "./component/FeedbackForm";
 
 class App extends Component {
   state = {
@@ -33,27 +33,29 @@ class App extends Component {
     const receiptsData = JSON.parse(localStorage.getItem("receiptsData"));
     if (receiptsData !== null) {
       const expiringReceipts = receiptsData.filter(
-        receipt =>
-          this.dateToTime(receipt.purchaseDate) < 8 &&
-          this.dateToTime(receipt.purchaseDate) >= 0
+        receipt => this.dateToTime(receipt.purchaseDate) < 8
+        // && this.dateToTime(receipt.purchaseDate) >= 0
       );
       this.setState({ receiptsData }); // eslint-disable-next-line
       expiringReceipts.length !== 0
         ? this.setState({ expiringReceipts, displayModal: true })
         : null;
     }
-
-    let existingCount = localStorage.getItem("openCount") === null ? 0 : localStorage.getItem("openCount");
-    localStorage.setItem(
-      "openCount",
-      parseInt(existingCount) + 1
-    );
+    // Create a count to utilise to send a feedback form periodically, using local storage, not state
+    // If no count in storage return existingCount = 0 else make existingCount storage count
+    // Then set local storage with the count + 1 - parceInt string into number
+    // When count reaches 10, change state to show FeedbackForm comp
+    // Once it reaches 11, count is set back to 0 - notice is a string "0" as storage stored as string
+    let existingCount =
+      localStorage.getItem("openCount") === null
+        ? 0
+        : localStorage.getItem("openCount");
+    localStorage.setItem("openCount", parseInt(existingCount) + 1);
     if (localStorage.getItem("openCount") == 10) {
       this.setState({ showFeedback: true });
     }
-    console.log(localStorage.getItem("openCount"))
     if (localStorage.getItem("openCount") > 10) {
-       localStorage.setItem("openCount", '0') 
+      localStorage.setItem("openCount", "0");
     }
   }
 
@@ -134,14 +136,18 @@ class App extends Component {
     // including those not in expiringReceipts, giving them an index of -1
     // If true (meaning receipt is in array, not returning -1), splice from array
     // Check if no expiring receipts after delete, to remove ExpiringReceiptsModal
-    const indexExpiringReceipts = this.state.expiringReceipts.findIndex(
+    let expiringReceipts = [...this.state.expiringReceipts];
+    const indexExpiringReceipts = expiringReceipts.findIndex(
       x => x.id === receiptId && x.vendor === vendor
     ); // eslint-disable-next-line
     indexExpiringReceipts >= 0
-      ? this.state.expiringReceipts.splice(indexExpiringReceipts, 1)
+      ? expiringReceipts.splice(indexExpiringReceipts, 1)
       : null;
-    if (this.state.expiringReceipts.length === 0) {
+    if (expiringReceipts.length === 0) {
       this.setState({ displayModal: false });
+    }
+    {
+      this.setState({ expiringReceipts });
     }
     // When func is called, send the filter function the parameters of
     // the current filteredValue & receiptsData
@@ -224,9 +230,7 @@ class App extends Component {
                 isError={this.state.isError}
                 isDuplicate={this.state.isDuplicate}
               />
-              <FeedbackForm 
-                showFeedback={this.state.showFeedback}
-              />
+              <FeedbackForm showFeedback={this.state.showFeedback} />
               <div className="qr-reader">
                 {/* QrReader comp obtained from QrReader react package;
                 onScan func called when there is a scan;

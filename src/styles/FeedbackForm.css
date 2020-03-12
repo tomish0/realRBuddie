@@ -5,12 +5,14 @@
     
 }
 
-input {
+textarea {
     border: 2px solid rgb(129, 171, 241);
     font-family: 'Montserrat';
-    margin: 5px;
+    /* margin: 5px; */
     padding: 5px;
-    width: 180px;
+    border-radius: 5px;
+    width: 315px;
+    height: 75px;
     font-size: 0.8em;
 }
 

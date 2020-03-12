@@ -14,20 +14,20 @@ class FeedbackForm extends Component {
     console.log(this.state.feedback);
     return (
       <div>
-        {!this.props.showFeedback && (
+        {this.props.showFeedback && (
           <div className="feedback-wrapper">
-            <input
+            <textarea
               type="text"
-              placeholder="Enter some feedback"
+              placeholder="What do you think of the app?"
               onChange={this.onInputChange}
-            ></input>
+            ></textarea>
             <a
               href={
-                "mailto:tomish0@outlook.com?subject=RBuddie%20Feedback&body=" +
+                "mailto:rbuddieltd@gmail.com?subject=RBuddie%20Feedback&body=" +
                 this.state.feedback
               }
             >
-              <button>Send Feedback?</button>
+              <button>Send Feedback</button>
             </a>
           </div>
         )}
