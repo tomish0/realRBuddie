@@ -33,8 +33,9 @@ class App extends Component {
     const receiptsData = JSON.parse(localStorage.getItem("receiptsData"));
     if (receiptsData !== null) {
       const expiringReceipts = receiptsData.filter(
-        receipt => this.dateToTime(receipt.purchaseDate) < 8
-        // && this.dateToTime(receipt.purchaseDate) >= 0
+        receipt =>
+          this.dateToTime(receipt.purchaseDate) < 8 &&
+          this.dateToTime(receipt.purchaseDate) > 0
       );
       this.setState({ receiptsData }); // eslint-disable-next-line
       expiringReceipts.length !== 0

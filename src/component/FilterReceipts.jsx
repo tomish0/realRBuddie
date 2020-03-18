@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import "../styles/Filter.css";
+import { faSearch } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class FilterReceipts extends Component {
-  
   // everytime there is a key/word input, this method is invoked and filters all receipts based on the value. this used filtered method from App.
   onInputChange = event => {
     this.props.filter(event.target.value);
@@ -12,7 +13,7 @@ class FilterReceipts extends Component {
     return (
       <div className="filter">
         <div className="filter-input-i">
-          <i className="fas fa-search" />
+          <FontAwesomeIcon icon={faSearch} />
           <input
             onChange={this.onInputChange}
             type="text"
