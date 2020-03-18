@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.27",
+    "@fortawesome/free-solid-svg-icons": "^5.12.1",
     "@fortawesome/react-fontawesome": "^0.1.8",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-fontawesome": "^1.7.1",
     "react-qr-reader": "^2.2.1",
     "react-script": "^2.0.5",
     "react-scripts": "0.9.5"

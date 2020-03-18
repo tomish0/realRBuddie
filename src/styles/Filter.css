@@ -13,8 +13,8 @@
   color: rgb(50, 120, 240);
 }
 
-.filter-input-i i {
-  padding: 0 5px;
+.filter-input-i svg {
+  margin: 0 7px;
 }
 
 .filter-input-i input {
