@@ -4,10 +4,12 @@ import "../styles/Navigation.css";
 
 class Navigation extends Component {
   render() {
+    // Variable checked used to change the switch to the correct mode when a scan occurs, 
+    // because input type="checkbox" has an attribute of 'checked' or not === true or false
     var checked =
       this.props.mode === 0
         ? true
-        : false; /* assigning variable checked on the navigation bar */
+        : false; 
 
     return (
       <nav className="App-top">

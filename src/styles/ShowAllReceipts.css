@@ -1,9 +1,10 @@
 .no-receipts {
   display: flex;
   justify-content: center;
-  padding: 20px 0 0 0;
+  padding: 20px;
   color: rgb(67, 157, 27);
   font-size: 1.3em;
+  margin: 0;
 }
 
 .delete-all-receipts {

@@ -32,6 +32,7 @@
 .modal-header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 2px 16px;
   background-color: #6f9ddf;
   color: white;
@@ -43,10 +44,8 @@
 
 /* The Close Button */
 .close {
-  display: flex;
-  align-items: center;
   color: white;
-  font-size: 28px;
+  font-size: 32px;
   font-weight: bold;
 }
 
