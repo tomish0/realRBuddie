@@ -2,10 +2,10 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 20px 0 0 0;
+  margin: 20px 0 18px 0;
 }
 
-.filter-input-i {
+.filter-input-icon {
   display: flex;
   align-items: center;
   margin: 10px;
@@ -13,11 +13,11 @@
   color: rgb(50, 120, 240);
 }
 
-.filter-input-i svg {
+.filter-input-icon svg {
   margin: 0 7px;
 }
 
-.filter-input-i input {
+.filter-input-icon input {
   font-size: 0.7em;
   padding: 5px;
   width: 230px;
