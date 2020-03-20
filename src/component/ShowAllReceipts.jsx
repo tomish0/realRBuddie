@@ -59,8 +59,7 @@ class ShowAllReceipts extends Component {
             </div>
           );
         })}
-        {/* If scroll is true then add class to transition in the deleteAllReeceipts button.
-        If there is more than one receipt */}
+        {/* If scroll is true then add class to transition in the deleteAllReceipts button. */}
         <div
           className={
             this.state.scroll
@@ -68,6 +67,8 @@ class ShowAllReceipts extends Component {
               : "delete-all-receipts"
           }
         >
+          {/* If there is more than one receipt & state deleteClick = false then show the deleteAllReceipts button.
+          If it is clicked then deleteClick is set to true and then next conditonal doesn't return null. */}
           {this.props.receiptsData.length > 1 &&
           this.state.deleteClick === false ? (
             <div>
@@ -76,6 +77,9 @@ class ShowAllReceipts extends Component {
               </button>
             </div>
           ) : null}
+          {/* The deleteAllReceipts button has been clicked, setting deleteClick = true - so,
+          2 new buttons are shown - one to call deleteAllReceipts func and 
+          the other to cancel process and set deleteClick back to false */}
           {this.props.receiptsData.length > 1 &&
           this.state.deleteClick === true ? (
             <div>

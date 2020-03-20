@@ -2,8 +2,12 @@ import React, { Component } from "react";
 import "../styles/ShowReceipt.css";
 
 class ShowReceipt extends Component {
-  // below code shows expire date(how many days left) on the receipt.
   dateToTime = purchaseDate => {
+    // Create variable currentDate
+    // Create variable receiptDate - a date created with the purchaseDate key of the receipt json
+    // Variable difference calculates difference in time (milliseconds) between two dates
+    // Variable days changes time in milliseconds to days
+    // Return 28 - the days to be used to find out the time to expiry on each receipt
     let currentDate = new Date();
     let receiptDate = new Date(purchaseDate);
     let difference = currentDate.getTime() - receiptDate.getTime();
@@ -14,21 +18,6 @@ class ShowReceipt extends Component {
   render() {
     const receipt = this.props.receipt;
     const items = receipt.items;
-    // below code iterating through each receipt and shows receipts title, price and return period.
-    const eachItem = items.map((item, i) => {
-      return (
-        <div className="receipt-elements each-item" key={i}>
-          <div className="space-between">
-            <div>{item.title}</div>
-            <div>£{item.price}</div>
-          </div>
-          <div className="return-period">
-            Return Period: {item.returnPeriod} days
-          </div>
-        </div>
-      );
-    });
-
     const daysToExpiry = this.dateToTime(receipt.purchaseDate);
 
     return (
@@ -43,9 +32,7 @@ class ShowReceipt extends Component {
               : "receipt-age-red"
           }
         >
-          {daysToExpiry > 0
-            ? `Expiry in: ${daysToExpiry} days`
-            : "EXPIRED"}
+          {daysToExpiry > 0 ? `Expiry in: ${daysToExpiry} days` : "EXPIRED"}
         </div>
         <div className="store-info-section">
           <div className="receipt-elements space-between">
@@ -70,7 +57,19 @@ class ShowReceipt extends Component {
           </div>
         </div>
         <div className="total-costs-section">
-          {eachItem}
+          {items.map((item, i) => {
+            return (
+              <div className="receipt-elements each-item" key={i}>
+                <div className="space-between">
+                  <div>{item.title}</div>
+                  <div>£{item.price}</div>
+                </div>
+                <div className="return-period">
+                  Return Period: {item.returnPeriod} days
+                </div>
+              </div>
+            );
+          })}
           <div className="receipt-elements space-between total-price">
             <div>BALANCE DUE:</div>
             <div>£{receipt.totalPrice}</div>
